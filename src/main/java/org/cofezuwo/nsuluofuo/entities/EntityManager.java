@@ -15,14 +15,8 @@ public class EntityManager {
 	private Player player;
 	private Player2 player2;
 	private List<Entity> entities;
-	private Comparator<Entity> renderSorter = new Comparator<Entity>() {
-		public int compare(Entity a, Entity b) {
-			if (a.getY() + a.getHeight() < b.getY() + b.getHeight()) {
-				return -1;
-			}
-			return 1;
-		}
-	};
+
+	private Comparator<Entity> renderSorter;
 
 	public EntityManager(Player player, Player2 player2) {
 		this.player = player;
@@ -30,6 +24,15 @@ public class EntityManager {
 		entities = new ArrayList<>();
 		addEntity(player);
 		addEntity(player2);
+
+		this.renderSorter = new Comparator<Entity>() {
+			public int compare(Entity a, Entity b) {
+				if (a.getY() + a.getHeight() < b.getY() + b.getHeight()) {
+					return -1;
+				}
+				return 1;
+			}
+		};
 		
 	}
 
@@ -47,7 +50,6 @@ public class EntityManager {
 		}
 
 		player.postRender(g);
-		
 	}
 
 	public void addEntity(Entity e) {

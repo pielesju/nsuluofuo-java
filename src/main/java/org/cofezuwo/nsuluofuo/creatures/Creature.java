@@ -4,25 +4,25 @@ import lombok.Getter;
 import lombok.Setter;
 import org.cofezuwo.nsuluofuo.entities.Entity;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.worlds.World;
 
 public abstract class Creature extends Entity {
 
-	public static final float DEFAULT_SPEED = 1.5f;
+	public static final int DEFAULT_SPEED = 1;
 	public static final int DEFAULT_CREATURE_WIDTH = 32;
 	public static final int DEFAULT_CREATURE_HEIGHT = 32;
 
 	@Getter
 	@Setter
-	private float speed;
+	private int speed;
 
 	@Getter
 	@Setter
-	private float xMove = 0;
+	private int xMove = 0;
 
 	@Getter
 	@Setter
-	private float yMove = 0;
+	private int yMove = 0;
 
 
 	public void moveX() {
@@ -63,52 +63,52 @@ public abstract class Creature extends Entity {
 	}
 
 	private boolean collisionWithTile(int x, int y) {
-		return Handler.getInstance().getWorld().getTile(x, y).isSolid();
+		return World.getInstance().getTile(x, y).isSolid();
 	}
 
-	public Creature(float x, float y, int width, int height) {
+	protected Creature(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		setSpeed(DEFAULT_SPEED);
 	}
 
 	public void move() {
-		if (!checkEntityCollisions(xMove, 0f)) moveX();
-		if (!checkEntityCollisions(0f, yMove)) moveY();
+		if (!checkEntityCollisions(xMove, 0)) moveX();
+		if (!checkEntityCollisions(0, yMove)) moveY();
 	}
 
 	public void giveExp(int amount) {
 		for (int i = 0; i < amount; i++) {
-			Handler.getInstance().getWorld().getEntityManager().getPlayer()
-					.setExp(Handler.getInstance().getWorld().getEntityManager().getPlayer().getExp() + 1);
-			if (Handler.getInstance().getWorld().getEntityManager().getPlayer().getExp() >= Handler.getInstance().getWorld().getEntityManager()
+			World.getInstance().getEntityManager().getPlayer()
+					.setExp(World.getInstance().getEntityManager().getPlayer().getExp() + 1);
+			if (World.getInstance().getEntityManager().getPlayer().getExp() >= World.getInstance().getEntityManager()
 					.getPlayer().getMaxExp()) {
-				Handler.getInstance().getWorld().getEntityManager().getPlayer().setExp(0);
-				Handler.getInstance().getWorld().getEntityManager().getPlayer()
-						.setLevel(Handler.getInstance().getWorld().getEntityManager().getPlayer().getLevel() + 1);
-				Handler.getInstance().getWorld().getEntityManager().getPlayer()
-						.setMaxExp(Handler.getInstance().getWorld().getEntityManager().getPlayer().getMaxExp()
-								+ (Handler.getInstance().getWorld().getEntityManager().getPlayer().getMaxExp() / 2));
+				World.getInstance().getEntityManager().getPlayer().setExp(0);
+				World.getInstance().getEntityManager().getPlayer()
+						.setLevel(World.getInstance().getEntityManager().getPlayer().getLevel() + 1);
+				World.getInstance().getEntityManager().getPlayer()
+						.setMaxExp(World.getInstance().getEntityManager().getPlayer().getMaxExp()
+								+ (World.getInstance().getEntityManager().getPlayer().getMaxExp() / 2));
 
 			}
 		}
 	}
 
 	public void path() {
-		setXMove(0.0f);
-		setYMove(0.0f);
+		setXMove(0);
+		setYMove(0);
 
 		int width = 0;
-		if (getWidth() > Handler.getInstance().getWorld().getEntityManager().getPlayer().getWidth()) {
+		if (getWidth() > World.getInstance().getEntityManager().getPlayer().getWidth()) {
 			width = 32;
 		}
 
-		if (getX() + width < Handler.getInstance().getWorld().getEntityManager().getPlayer().getX()) {
+		if (getX() + width < World.getInstance().getEntityManager().getPlayer().getX()) {
 			setXMove(getXMove() + getSpeed());
-		} else if (getX() + width > Handler.getInstance().getWorld().getEntityManager().getPlayer().getX()) {
+		} else if (getX() + width > World.getInstance().getEntityManager().getPlayer().getX()) {
 			setXMove(getXMove() - getSpeed());
-		} else if (getY() + width < Handler.getInstance().getWorld().getEntityManager().getPlayer().getY()) {
+		} else if (getY() + width < World.getInstance().getEntityManager().getPlayer().getY()) {
 			setYMove(getYMove() + getSpeed());
-		} else if (getY() + width > Handler.getInstance().getWorld().getEntityManager().getPlayer().getY()) {
+		} else if (getY() + width > World.getInstance().getEntityManager().getPlayer().getY()) {
 			setYMove(getY() - getSpeed());
 		}
 

@@ -7,8 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.cofezuwo.nsuluofuo.graphics.Assets;
+import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.graphics.Text;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.input.KeyManager;
+import org.cofezuwo.nsuluofuo.main.Game;
+import org.cofezuwo.nsuluofuo.worlds.World;
 
 public class PlayerInfo {
 
@@ -29,7 +32,7 @@ public class PlayerInfo {
 		
 		
 		
-		if (Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
+		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_E)) {
 			if(Dialog.isActive()) {
 				return;
 			}
@@ -41,14 +44,14 @@ public class PlayerInfo {
 			return;
 		}
 		
-		if(Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
+		if(KeyManager.getInstance().keyJustPressed(KeyEvent.VK_RIGHT)){
 			active = !active;
-			Handler.getInstance().getWorld().getEntityManager().getPlayer().getInventory().setActive(true);
+			World.getInstance().getEntityManager().getPlayer().getInventory().setActive(true);
 		}
 		
-		if(Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)){
+		if(KeyManager.getInstance().keyJustPressed(KeyEvent.VK_LEFT)){
 			active = !active;
-			Handler.getInstance().getWorld().getEntityManager().getPlayer().getTrivel().setActive(true);
+			World.getInstance().getEntityManager().getPlayer().getTrivel().setActive(true);
 		}
 
 	}
@@ -59,10 +62,10 @@ public class PlayerInfo {
 			return;
 		}
 		g.setColor(color);
-		g.fillRoundRect(20, 20, Handler.getInstance().getGame().getWidth() - 40, Handler.getInstance().getGame().getHeight() - 40, 40, 40);
+		g.fillRoundRect(20, 20, Game.getInstance().getWidth() - 40, Game.getInstance().getHeight() - 40, 40, 40);
 		g.setColor(Color.gray);
-		g.fillRect(40, 80, Handler.getInstance().getGame().getWidth() - 80, 2);
-		Text.drawString(g, ""+Handler.getInstance().getWorld().getName(), 320, 60, true, Color.gray, Assets.text);
+		g.fillRect(40, 80, Game.getInstance().getWidth() - 80, 2);
+		Text.drawString(g, ""+World.getInstance().getName(), 320, 60, true, Color.gray, Assets.text);
 		g.setColor(Color.BLACK);
 		g.fillRect(304, 466, 8, 8);
 		
@@ -72,7 +75,7 @@ public class PlayerInfo {
 		
 		Text.drawString(g, "HP:", 320, 98, true, Color.gray, Assets.smallText);
 		g.setColor(Color.gray);
-		double f = Handler.getInstance().getWorld().getEntityManager().getPlayer().getMaxHealth() / Handler.getInstance().getWorld().getEntityManager().getPlayer().getHealth();
+		int f = World.getInstance().getEntityManager().getPlayer().getMaxHealth() / World.getInstance().getEntityManager().getPlayer().getHealth();
 		g.fillRect(340, 95, 260, 10);
 		g.setColor(Color.GREEN);
 		g.fillRect(340, 95, (int)(260/f), 10);
@@ -88,9 +91,9 @@ public class PlayerInfo {
 		g.setColor(Color.GREEN);
 		g.fillRect(40, 87, 250, 250);
 		g.setColor(Color.BLACK);
-		g.fillRect((int)((Handler.getInstance().getWorld().getEntityManager().getPlayer().getX() + Handler.getInstance().getGameCamera().getxOffset())/128 + 39), (int) ((Handler.getInstance().getWorld().getEntityManager().getPlayer().getY() + Handler.getInstance().getGameCamera().getyOffset())/128 + 49)+20+17, 6, 6);
+		g.fillRect((int)((World.getInstance().getEntityManager().getPlayer().getX() + GameCamera.getInstance().getxOffset())/128 + 39), (int) ((World.getInstance().getEntityManager().getPlayer().getY() + GameCamera.getInstance().getyOffset())/128 + 49)+20+17, 6, 6);
 		g.setColor(Color.WHITE);
-		g.fillRect((int)((Handler.getInstance().getWorld().getEntityManager().getPlayer().getX() + Handler.getInstance().getGameCamera().getxOffset())/128 + 40), (int) ((Handler.getInstance().getWorld().getEntityManager().getPlayer().getY() + Handler.getInstance().getGameCamera().getyOffset())/128 + 50)+20 +17, 4, 4);
+		g.fillRect((int)((World.getInstance().getEntityManager().getPlayer().getX() + GameCamera.getInstance().getxOffset())/128 + 40), (int) ((World.getInstance().getEntityManager().getPlayer().getY() + GameCamera.getInstance().getyOffset())/128 + 50)+20 +17, 4, 4);
 		
 		
 		

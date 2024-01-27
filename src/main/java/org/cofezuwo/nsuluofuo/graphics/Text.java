@@ -6,7 +6,11 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 public class Text {
-	
+
+	private Text() {
+
+	}
+
 	public static void drawString(Graphics g, String text, int xPos, int yPos, boolean center, Color c, Font font){
 		g.setColor(c);
 		g.setFont(font);

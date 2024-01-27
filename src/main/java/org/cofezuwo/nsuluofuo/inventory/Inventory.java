@@ -2,8 +2,10 @@ package org.cofezuwo.nsuluofuo.inventory;
 
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.Text;
+import org.cofezuwo.nsuluofuo.input.KeyManager;
 import org.cofezuwo.nsuluofuo.item.Item;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.main.Game;
+import org.cofezuwo.nsuluofuo.worlds.World;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -47,20 +49,21 @@ public class Inventory {
 			return;
 		}
 
-		if (Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)) {
+
+		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_LEFT)) {
 			active = !active;
-			Handler.getInstance().getWorld().getEntityManager().getPlayer().getInfo().setActive(true);
+			World.getInstance().getEntityManager().getPlayer().getInfo().setActive(true);
 		}
 
-		if (Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_UP)) {
+		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_PAGE_UP)) {
 			selectedItem--;
 		}
-		if (Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)) {
+		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_PAGE_DOWN)) {
 			selectedItem++;
 
 		}
 
-		if (Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
+		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_ENTER)) {
 			if (inventoryItems.get(selectedItem).getCount() - 1 == 0) {
 				return;
 			}
@@ -68,13 +71,13 @@ public class Inventory {
 				return;
 			} else {
 				inventoryItems.get(selectedItem).setCount(inventoryItems.get(selectedItem).getCount() - 1);
-				Handler.getInstance().getWorld().getEntityManager().getPlayer()
-						.setMoney(Handler.getInstance().getWorld().getEntityManager().getPlayer().getMoney()
+				World.getInstance().getEntityManager().getPlayer()
+						.setMoney(World.getInstance().getEntityManager().getPlayer().getMoney()
 								+ inventoryItems.get(selectedItem).getPrize());
 			}
 
 		}
-		if (Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_H)) {
+		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_H)) {
 			if (inventoryItems.get(selectedItem).getCount() - 1 == 0) {
 				return;
 			}
@@ -88,13 +91,13 @@ public class Inventory {
 				return;
 			} else {
 				inventoryItems.get(selectedItem).setCount(inventoryItems.get(selectedItem).getCount() - 1);
-				Handler.getInstance().getWorld().getEntityManager().getPlayer()
-						.setHealth(Handler.getInstance().getWorld().getEntityManager().getPlayer().getHealth()
+				World.getInstance().getEntityManager().getPlayer()
+						.setHealth(World.getInstance().getEntityManager().getPlayer().getHealth()
 								+ inventoryItems.get(selectedItem).getStrength());
 			}
 
 		}
-		if (Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_U)) {
+		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_U)) {
 			if (inventoryItems.get(selectedItem).getCount() - 1 == 0) {
 				return;
 			}
@@ -103,8 +106,8 @@ public class Inventory {
 				return;
 			}
 
-			Handler.getInstance().getWorld().getEntityManager().getPlayer().setCurrentWeapon(inventoryItems.get(selectedItem));
-			Handler.getInstance().getWorld().getEntityManager().getPlayer().setStrength(inventoryItems.get(selectedItem).getAttack());
+			World.getInstance().getEntityManager().getPlayer().setCurrentWeapon(inventoryItems.get(selectedItem));
+			World.getInstance().getEntityManager().getPlayer().setStrength(inventoryItems.get(selectedItem).getAttack());
 		}
 
 		if (selectedItem < 0) {
@@ -124,7 +127,7 @@ public class Inventory {
 		g.setColor(color);
 		g.fillRoundRect(20, 20, 600, 440, 40, 40);
 		g.setColor(Color.GRAY);
-		g.fillRect(40, 80, Handler.getInstance().getGame().getWidth() - 80, 2);
+		g.fillRect(40, 80, Game.getInstance().getWidth() - 80, 2);
 		Text.drawString(g, "Items", 320, 60, true, Color.gray, Assets.text);
 		int length = inventoryItems.size();
 		if (length == 0) {

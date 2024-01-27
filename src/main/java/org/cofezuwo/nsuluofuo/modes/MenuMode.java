@@ -8,7 +8,8 @@ import javax.swing.JTextField;
 
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.Text;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.input.MouseManager;
+import org.cofezuwo.nsuluofuo.main.Game;
 import org.cofezuwo.nsuluofuo.ui.ClickListener;
 import org.cofezuwo.nsuluofuo.ui.GUIImageButton;
 import org.cofezuwo.nsuluofuo.ui.GUIManager;
@@ -24,15 +25,15 @@ public class MenuMode extends Mode {
 		textField = new JTextField();
 		guiManager = GUIManager.getInstance();
 		guiManager.clear();
-		Handler.getInstance().getMouseManager().setGUIManager(guiManager);
+		MouseManager.getInstance().setGUIManager(guiManager);
 		
 		guiManager.addObject(new GUIImageButton(256, 158, 128, 64, Assets.start_btn, new ClickListener(){
 		
 	
 			@Override
 			public void onClick() {
-				Handler.getInstance().getMouseManager().setGUIManager(null);
-				Mode.setMode(Handler.getInstance().getGame().gameMode);
+				MouseManager.getInstance().setGUIManager(null);
+				Mode.setMode(Game.getInstance().gameMode);
 				
 			}}));
 		
@@ -41,7 +42,7 @@ public class MenuMode extends Mode {
 			
 			@Override
 			public void onClick() {
-				Handler.getInstance().getMouseManager().setGUIManager(null);
+				MouseManager.getInstance().setGUIManager(null);
 				System.exit(0);
 				
 			}}));
@@ -51,7 +52,7 @@ public class MenuMode extends Mode {
 			
 			@Override
 			public void onClick() {
-				Mode.setMode(Handler.getInstance().getGame().settingsMode);
+				Mode.setMode(Game.getInstance().settingsMode);
 				guiManager.clear();
 			}}));
 	}

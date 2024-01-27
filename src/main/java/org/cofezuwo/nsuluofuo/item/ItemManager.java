@@ -3,32 +3,31 @@ package org.cofezuwo.nsuluofuo.item;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class ItemManager {
 	
 
-	private ArrayList<Item> items;
+	private List<Item> items;
 	
 	public ItemManager(){
 
-		items = new ArrayList<Item>();
+		items = new ArrayList<>();
 	}
 	
 	public void update(){
-		Iterator<Item> it = items.iterator();
-		while(it.hasNext()){
-			Item i = it.next();
-			i.update();
-			if(i.isPickedUp()){
-				it.remove();
+		for(Item item : items) {
+			item.update();
+			if(item.isPickedUp()) {
+				items.remove(item);
 			}
 		}
 	}
 	
 	public void render(Graphics g){
-		for(Item i: items){
-			i.render(g);
+		for(Item item : items){
+			item.render(g);
 		}
 	}
 	

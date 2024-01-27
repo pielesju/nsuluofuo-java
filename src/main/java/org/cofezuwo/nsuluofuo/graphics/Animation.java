@@ -4,9 +4,11 @@ import java.awt.image.BufferedImage;
 
 public class Animation {
 	
-	private int speed, index;
+	private int speed;
+	private int index;
 	public static final int DEFAULT_SPEED = 300;
-	private long lastTime, timer;
+	private long lastTime;
+	private long timer;
 	private BufferedImage[] frames;
 	
 	public Animation(int speed, BufferedImage[] frames){
@@ -41,7 +43,4 @@ public class Animation {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	
-	
-
 }

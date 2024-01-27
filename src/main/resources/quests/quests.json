@@ -1,0 +1,368 @@
+{
+  "name": "Example Quest",
+  "status": "ACTIVE",
+  "conditions": [],
+  "actions":  [],
+  "children": [
+    {
+      "name": "Quest1",
+      "status": "NA",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "NA",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "NA",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "NA",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "ACTIVE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "ACTIVE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "ACTIVE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "ACTIVE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "ACTIVE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "DONE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "DONE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "DONE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "DONE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "DONE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Quest1",
+      "status": "DONE",
+      "conditions": [
+        "int playerPosX = 200",
+        "int playerPosY = 200"
+      ],
+      "actions": [
+        "levelup"
+      ],
+      "children": [
+        {
+          "name": "Quest2",
+          "status": "NA",
+          "conditions": [
+            "playerPosition: [200,200]"
+          ],
+          "actions": [
+            "levelup"
+          ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

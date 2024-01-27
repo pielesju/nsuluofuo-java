@@ -3,6 +3,7 @@ package org.cofezuwo.nsuluofuo.main;
 import java.awt.Graphics;
 
 import java.awt.image.BufferStrategy;
+import java.security.Key;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,10 @@ import org.cofezuwo.nsuluofuo.multiplayer.SimpleDualPlayer;
 
 public class Game implements Runnable {
 
+	private static Game instance;
+
+	private final static long SECOND = 1000000000;
+
 	private Display display;
 
 	private Thread thread;
@@ -28,6 +33,9 @@ public class Game implements Runnable {
 	@Setter
 	private int width;
 
+	private KeyManager keyManager;
+	private MouseManager mouseManager;
+
 	@Getter
 	@Setter
 	private int height;
@@ -35,8 +43,7 @@ public class Game implements Runnable {
 	private BufferStrategy bufferStrategy;
 	private Graphics g;
 
-	@Getter
-	private KeyManager keyManager;
+
 	private int ticks;
 
 	// States
@@ -47,8 +54,7 @@ public class Game implements Runnable {
 	public Mode dialogMode;
 
 
-	@Getter
-	private MouseManager mouseManager;
+
 
 	public boolean isRunning() {
 		return running;
@@ -61,16 +67,27 @@ public class Game implements Runnable {
 	@Getter
 	private GameCamera gameCamera;
 
-	public Game(String title, int width, int height) {
+	private Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
-		keyManager = new KeyManager();
-		mouseManager = new MouseManager();
+
+		keyManager = KeyManager.getInstance();
+		mouseManager = MouseManager.getInstance();
 
 	}
 
+	public static Game getInstance() {
+		if(null == instance) {
+			instance = new Game("NSULUOFUO", 640, 480);
+		}
+
+		return instance;
+	}
+
 	private void initialize() {
+
+
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);
@@ -79,9 +96,7 @@ public class Game implements Runnable {
 		display.getCanvas().addMouseMotionListener(mouseManager);
 		Assets.initialize();
 
-		Handler.getInstance().setGame(this);
-
-		gameCamera = new GameCamera( 0, 0);
+		gameCamera = GameCamera.getInstance();
 		gameMode = new GameMode();
 		menuMode = new MenuMode();
 		settingsMode = new SettingsMode();
@@ -104,7 +119,7 @@ public class Game implements Runnable {
 	private void render() {
 		bufferStrategy = display.getCanvas().getBufferStrategy();
 		if (bufferStrategy == null) {
-			display.getCanvas().createBufferStrategy(16);
+			display.getCanvas().createBufferStrategy(2);
 			return;
 		}
 		g = bufferStrategy.getDrawGraphics();
@@ -114,16 +129,17 @@ public class Game implements Runnable {
 			Mode.getMode().render(g);
 		}
 
+
 		bufferStrategy.show();
 		g.dispose();
-
 	}
 
 	public void run() {
 		initialize();
-		int fps = 60;
-		double timePerUpdate = 1000000000 / fps;
+		int fps = 120;
+		double timePerUpdate = SECOND / fps;
 		double delta = 0;
+
 		long now;
 		long lastTime = System.nanoTime();
 		long timer = 0;
@@ -142,7 +158,7 @@ public class Game implements Runnable {
 				delta--;
 			}
 
-			if (timer >= 1000000000) {
+			if (timer >= SECOND) {
 				ticks = 0;
 				timer = 0;
 			}

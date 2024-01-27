@@ -6,9 +6,8 @@ import java.awt.event.KeyEvent;
 
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.Text;
-import org.cofezuwo.nsuluofuo.main.Handler;
-import org.cofezuwo.nsuluofuo.ui.GUIManager;
-import org.cofezuwo.nsuluofuo.ui.GUIObject;
+import org.cofezuwo.nsuluofuo.input.KeyManager;
+import org.cofezuwo.nsuluofuo.main.Game;
 
 
 public class SettingsMode extends Mode{
@@ -22,8 +21,8 @@ public class SettingsMode extends Mode{
 
 	@Override
 	public void update() {
-		if(Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
-			Mode.setMode(Handler.getInstance().getGame().menuMode);
+		if(KeyManager.getInstance().keyJustPressed(KeyEvent.VK_ESCAPE)){
+			Mode.setMode(Game.getInstance().menuMode);
 		}
 		
 	}

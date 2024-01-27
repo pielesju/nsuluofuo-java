@@ -10,8 +10,8 @@ import org.cofezuwo.nsuluofuo.multiplayer.MpCharacter;
 public class MpClientHandler implements Runnable{
 	
 	private Socket clientsoc;
-	private static double[] characterPosx = {0, 0};
-	private static double[] characterPosy = {0, 0};
+	private static int[] characterPosx = {0, 0};
+	private static int[] characterPosy = {0, 0};
 	private static int[] characterDir = {0, 0};
 	private static String[] characterName = {"-", "-"};
 	private static int index = 0;

@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.Text;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.input.KeyManager;
 
 
 public class Dialog {
@@ -27,7 +27,7 @@ public class Dialog {
 		if(!active) {
 			return;
 		}
-		if(Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_SPACE)) {
+		if(KeyManager.getInstance().keyJustPressed(KeyEvent.VK_SPACE)) {
 			active = ! active;
 		}
 	}

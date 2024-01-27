@@ -1,21 +1,21 @@
 package org.cofezuwo.nsuluofuo.creatures;
 
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import org.cofezuwo.nsuluofuo.graphics.Animation;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.graphics.GameCamera;
+import org.cofezuwo.nsuluofuo.input.KeyManager;
 import org.cofezuwo.nsuluofuo.multiplayer.MpConnection;
 import org.cofezuwo.nsuluofuo.multiplayer.SimpleDualPlayer;
-import org.cofezuwo.nsuluofuo.server.MpServer;
 
 public class Player2 extends Creature {
 	private BufferedImage currentPosition = Assets.playerDown;
 	private Animation animDown, animUp, animLeft, animRight;
+	private GameCamera cam;
 
-	public Player2(float x, float y) {
+	public Player2(int x, int y) {
 		super(x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
 		animDown = new Animation(animDown.DEFAULT_SPEED, Assets.player_down);
@@ -35,6 +35,8 @@ public class Player2 extends Creature {
 		bounds.width = 0;
 		bounds.height = 0;
 
+		this.cam = GameCamera.getInstance();
+
 	}
 
 	@Override
@@ -49,8 +51,8 @@ public class Player2 extends Creature {
 		move();
 		
 		//Positionsdaten von Multiplayerklassen holen
-		float remoteX = ((float)SimpleDualPlayer.getPlayerR().getPositionX());
-		float remoteY = ((float)SimpleDualPlayer.getPlayerR().getPositionY());
+		int remoteX = SimpleDualPlayer.getPlayerR().getPositionX();
+		int remoteY = SimpleDualPlayer.getPlayerR().getPositionY();
 		
 		//System.out.println("x ist: " + getX() + " x soll: " + remoteX + " differenz: " + Math.abs(getX() - remoteX) + " mehr als default speed: " + (boolean)(Math.abs(getY() - remoteY) > DEFAULT_SPEED));
 		//System.out.println("y ist: " + getY() + " y soll: " + remoteY + " differenz " + Math.abs(getY() - remoteY) + " mehr als default speed: " + (boolean)(Math.abs(getY() - remoteY) > DEFAULT_SPEED));
@@ -90,8 +92,8 @@ public class Player2 extends Creature {
 	@Override
 	public void render(Graphics g) {
 		if(MpConnection.online){
-			g.drawImage(getCurrentAnimationFrame(), (int) (getX() - Handler.getInstance().getGameCamera().getxOffset()),
-					(int) (getY() - Handler.getInstance().getGameCamera().getyOffset()), getWidth(), getHeight(), null);
+			g.drawImage(getCurrentAnimationFrame(), (int) (getX() - cam.getxOffset()),
+					(int) (getY() - cam.getyOffset()), getWidth(), getHeight(), null);
 		}else{
 			return;
 		}
@@ -100,13 +102,13 @@ public class Player2 extends Creature {
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {
-		if (Handler.getInstance().getKeyManager().isA()) {
+		if (KeyManager.getInstance().isA()) {
 			currentPosition = animLeft.getCurrentFrame();
-		} else if (Handler.getInstance().getKeyManager().isD()) {
+		} else if (KeyManager.getInstance().isD()) {
 			currentPosition = animRight.getCurrentFrame();
-		} else if (Handler.getInstance().getKeyManager().isW()) {
+		} else if (KeyManager.getInstance().isW()) {
 			currentPosition = animUp.getCurrentFrame();
-		} else if (Handler.getInstance().getKeyManager().isS()) {
+		} else if (KeyManager.getInstance().isS()) {
 			currentPosition = animDown.getCurrentFrame();
 		} else if (currentPosition == null) {
 
@@ -122,20 +124,20 @@ public class Player2 extends Creature {
 		setXMove(0);
 		setYMove(0);
 
-		if (Handler.getInstance().getKeyManager().isW()) {
+		if (KeyManager.getInstance().isW()) {
 			setYMove(getYMove() - getSpeed());
 		}
-		if (Handler.getInstance().getKeyManager().isS()) {
+		if (KeyManager.getInstance().isS()) {
 			setYMove(getYMove() + getSpeed());
 		}
-		if (Handler.getInstance().getKeyManager().isA()) {
+		if (KeyManager.getInstance().isA()) {
 			setXMove(getXMove() - getSpeed());
 		}
-		if (Handler.getInstance().getKeyManager().isD()) {
+		if (KeyManager.getInstance().isD()) {
 			setXMove(getXMove() + getSpeed());
 		}
 
-		if (Handler.getInstance().getKeyManager().isSpace()) {
+		if (KeyManager.getInstance().isSpace()) {
 			setSpeed(DEFAULT_SPEED * 2);
 			animDown.setSpeed(animDown.DEFAULT_SPEED / 2);
 			animUp.setSpeed(animUp.DEFAULT_SPEED / 2);

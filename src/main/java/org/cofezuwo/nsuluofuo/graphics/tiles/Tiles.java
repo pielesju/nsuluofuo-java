@@ -28,4 +28,8 @@ public class Tiles {
             new Tile(20, Assets.stoneBright, 32, 32, true),
             new Tile(21, Assets.gate, 32, 32, false)
     };
+
+    private Tiles() {
+
+    }
 }

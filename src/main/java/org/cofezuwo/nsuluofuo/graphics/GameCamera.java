@@ -2,59 +2,69 @@ package org.cofezuwo.nsuluofuo.graphics;
 
 import org.cofezuwo.nsuluofuo.entities.Entity;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.main.Game;
+import org.cofezuwo.nsuluofuo.worlds.World;
 
 public class GameCamera {
 
-	private float xOffset;
-	private float yOffset;
+	private static GameCamera instance;
 
-	public void move(float xAmt, float yAmt) {
+	private int xOffset;
+	private int yOffset;
+
+	public void move(int xAmt, int yAmt) {
 		setxOffset(getxOffset() + xAmt);
 		setyOffset(getyOffset() + yAmt);
 		checkBlankSpace();
 	}
 
-	public float getxOffset() {
+	public int getxOffset() {
 		return xOffset;
 	}
 
-	public void setxOffset(float xOffset) {
+	public void setxOffset(int xOffset) {
 		this.xOffset = xOffset;
 	}
 
-	public float getyOffset() {
+	public int getyOffset() {
 		return yOffset;
 	}
 
-	public void setyOffset(float yOffset) {
+	public void setyOffset(int yOffset) {
 		this.yOffset = yOffset;
 	}
 
 	public void centerOnEntity(Entity e) {
-		setxOffset(e.getX() - Handler.getInstance().getWidth() / 2 + e.getWidth() / 2);
-		setyOffset(e.getY() - Handler.getInstance().getHeight() / 2 + e.getHeight() / 2);
+		setxOffset(e.getX() - Game.getInstance().getWidth() / 2 + e.getWidth() / 2);
+		setyOffset(e.getY() - Game.getInstance().getHeight() / 2 + e.getHeight() / 2);
 		checkBlankSpace();
 	}
 	
 	public void checkBlankSpace(){
 		if(getxOffset() < 0) setxOffset(0);
 
-		if(getxOffset() > Handler.getInstance().getWorld().getWidth() * Tile.TILEWIDTH - Handler.getInstance().getWidth()){
-			setxOffset(Handler.getInstance().getWorld().getWidth() * Tile.TILEWIDTH - Handler.getInstance().getWidth());
+		if(getxOffset() > World.getInstance().getWidth() * Tile.TILEWIDTH - Game.getInstance().getWidth()){
+			setxOffset(World.getInstance().getWidth() * Tile.TILEWIDTH - Game.getInstance().getWidth());
 		}
 
 		if(getyOffset() < 0) setyOffset(0);
 
-		if(getyOffset() > Handler.getInstance().getWorld().getHeight() * Tile.TILEHEIGHT - Handler.getInstance().getHeight()){
-			setyOffset(Handler.getInstance().getWorld().getHeight() * Tile.TILEHEIGHT - Handler.getInstance().getHeight());
+		if(getyOffset() > World.getInstance().getHeight() * Tile.TILEHEIGHT - Game.getInstance().getHeight()){
+			setyOffset(World.getInstance().getHeight() * Tile.TILEHEIGHT - Game.getInstance().getHeight());
 		}
 	}
 
-	public GameCamera(float xOffset, float yOffset) {
-		this.xOffset = xOffset;
-		this.yOffset = yOffset;
+	private GameCamera() {
+		this.xOffset = 0;
+		this.yOffset = 0;
+	}
 
+	public static GameCamera getInstance() {
+		if(null == instance) {
+			instance = new GameCamera();
+		}
+
+		return instance;
 	}
 
 }

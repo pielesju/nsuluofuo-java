@@ -8,12 +8,23 @@ import org.cofezuwo.nsuluofuo.ui.GUIManager;
 
 public class MouseManager implements MouseListener, MouseMotionListener{
 
-	private boolean leftPressed, rightPressed;
+	private static MouseManager instance;
+
+	private boolean leftPressed;
+	private boolean rightPressed;
 	private int mouseX, mouseY;
 	private GUIManager guiManager;
 	
-	public MouseManager(){
+	private MouseManager(){
 		
+	}
+
+	public static MouseManager getInstance() {
+		if(null == instance) {
+			instance = new MouseManager();
+		}
+
+		return instance;
 	}
 	
 	public void setGUIManager(GUIManager guiManager){
@@ -23,8 +34,7 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
-		
+		// not supported
 	}
 
 	@Override
@@ -39,20 +49,17 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
-		
+		// not supported
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
-		
+		// not supported
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		
-		
+		// not supported
 	}
 
 	@Override

@@ -16,8 +16,8 @@ public class MpConnection {
 	private String host;
 	private int port;
 	public static boolean online;
-	private static double[] characterPosx = {0, 0};
-	private static double[] characterPosy = {0, 0};
+	private static int[] characterPosx = {0, 0};
+	private static int[] characterPosy = {0, 0};
 	private static int[] characterDir = {0, 0};
 	private static String[] characterName = {"-", "-"};
 	

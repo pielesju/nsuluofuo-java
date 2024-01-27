@@ -15,12 +15,6 @@ public abstract class Mode {
 		return currentMode;
 	}
 
-	//
-
-
-	public Mode() {
-	}
-
 	public abstract void update();
 
 	public abstract void render(Graphics g);

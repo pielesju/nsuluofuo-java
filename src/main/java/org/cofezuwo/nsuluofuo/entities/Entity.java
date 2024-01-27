@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.worlds.World;
 
 public abstract class Entity {
 
@@ -13,11 +13,11 @@ public abstract class Entity {
 
 	@Getter
 	@Setter
-	private float x;
+	protected int x;
 
 	@Getter
 	@Setter
-	private float y;
+	protected int y;
 
 	@Getter
 	@Setter
@@ -46,7 +46,7 @@ public abstract class Entity {
 	protected Rectangle bounds;
 	protected Rectangle dbounds;
 
-	public Entity(float x, float y, int width, int height) {
+	protected Entity(int x, int y, int width, int height) {
 		setMaxHealth(DEFAULT_HEALTH);
 		setHealth(getMaxHealth());
 		this.x = x*32;
@@ -55,7 +55,7 @@ public abstract class Entity {
 		this.height = height;
 
 		bounds = new Rectangle(0, 0, width, height);
-		dbounds = new Rectangle((int) (getX() + bounds.x), (int) (getY() + bounds.y), width, height);
+		dbounds = new Rectangle(getX() + bounds.x, getY() + bounds.y, width, height);
 	}
 
 	public abstract void update();
@@ -74,20 +74,18 @@ public abstract class Entity {
 		setActive(false);
 	}
 
-	public boolean checkEntityCollisions(float xOffset, float yOffset) {
-		for (Entity e : Handler.getInstance().getWorld().getEntityManager().getEntities()) {
-			if (e.equals(this))
-				continue;
-			if (e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) {
-				return true;
-			}
+	public boolean checkEntityCollisions(int xOffset, int yOffset) {
+		for (Entity e : World.getInstance().getEntityManager().getEntities()) {
+			if (e.equals(this)) continue;
+			if (e.getCollisionBounds(0, 0).intersects(getCollisionBounds(xOffset, yOffset))) return true;
 		}
+
 		return false;
 	}
 
-	public Rectangle getCollisionBounds(float xOffset, float yOffset) {
+	public Rectangle getCollisionBounds(int xOffset, int yOffset) {
 		return new Rectangle((int) (getX() + bounds.x + xOffset), (int) (getY() + bounds.y + yOffset), bounds.width,
-				bounds.width);
+				bounds.height);
 	}
 
 

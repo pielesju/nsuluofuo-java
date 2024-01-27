@@ -1,64 +1,71 @@
 package org.cofezuwo.nsuluofuo.story;
 
-import org.cofezuwo.nsuluofuo.item.Item;
+import lombok.Getter;
+import lombok.Setter;
+import org.cofezuwo.nsuluofuo.worlds.World;
+
+import java.util.List;
 
 public class Quest {
-	
-	private boolean done;
-	private boolean active = false;
-	private Item item;
-	private int reward;
-	private String name;
-	
-	public Quest(){
-		
-	}
-	
-	public void update(){
-		if(!isActive() || isDone()){
-			return;
-		}else{
-			
-		}
-	}
-	
-	public void render(){
-		if(!isActive() || isDone()){
-			return;
-		}else{
-			
-		}
-	}
+    @Getter
+    @Setter
+    private String name;
+    @Getter
+    @Setter
+    private QuestStatus status;
+    @Getter
+    @Setter
+    private List<String> conditions;
+    @Getter
+    @Setter
+    private List<String> actions;
+    @Getter
+    @Setter
+    private List<Quest> children;
 
-	public boolean isDone() {
-		return done;
-	}
-	public void setDone(boolean done) {
-		this.done = done;
-	}
-	public Item getItem() {
-		return item;
-	}
-	public int getReward() {
-		return reward;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setItem(Item item) {
-		this.item = item;
-	}
-	public void setReward(int reward) {
-		this.reward = reward;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public boolean isActive() {
-		return active;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public String toString() {
+        StringBuilder sb = new StringBuilder(this.name);
 
+        sb.append(":\n");
+        sb.append("STATUS: ").append(this.status).append("\n");
+
+        if(null != conditions) {
+            sb.append("CONDITIONS:\n");
+            for(String condition : conditions) {
+                sb.append(condition).append("\n");
+            }
+        }
+
+        if(null != actions) {
+            sb.append("ACTIONS:\n");
+            for(String action : actions) {
+                sb.append(action).append("\n");
+            }
+        }
+
+        if(null != children) {
+            for(Quest quest : children) {
+                sb.append(quest.toString());
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public boolean checkConditions() {
+        for(String condition : this.conditions) {
+            String[] t = condition.split(" ");
+            Condition con = new Condition(t[0], t[1], t[2], t[3]);
+
+            if(con.resolve() == false) return false;
+        }
+
+        return true;
+    }
+
+    public void doActions() {
+        for(String action : this.actions) {
+
+        }
+    }
 }

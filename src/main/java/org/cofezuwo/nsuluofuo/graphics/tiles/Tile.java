@@ -26,7 +26,7 @@ public class Tile {
 	}
 
 	public void update() {
-
+		// not supported
 	}
 
 	public void render(Graphics g, int x, int y) {

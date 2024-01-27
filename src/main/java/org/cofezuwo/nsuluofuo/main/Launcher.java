@@ -34,8 +34,6 @@ public class Launcher {
 	 */
 	public Launcher() {
 		initialize();
-		game = new Game("NSULUOFUO", 640, 480);
-		address = textField_1.getText();
 	}
 
 	/**
@@ -50,7 +48,7 @@ public class Launcher {
 		JButton btnNewButton = new JButton("Play");
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.addActionListener(e -> {
-			game.start();
+			Game.getInstance().start();
 			frame.dispose();
 		});
 		btnNewButton.setBounds(335, 189, 89, 23);

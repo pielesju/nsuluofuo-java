@@ -6,21 +6,17 @@ import java.util.Random;
 
 import org.cofezuwo.nsuluofuo.creatures.Creature;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 
 public class Ganja extends StaticEntity{
-	
-	private float x, y;
-	
+
 	private Random random = new Random();
 	private BufferedImage[] textures = new BufferedImage[3];
 	private BufferedImage texture;
 
-	public Ganja(float x, float y, int width, int height) {
+	public Ganja(int x, int y, int width, int height) {
 		super(x, y, Creature.DEFAULT_CREATURE_WIDTH, 2* Creature.DEFAULT_CREATURE_HEIGHT);
-		this.x = x * 32;
-		this.y = y * 32;
-		
+
 		bounds.x = 15;
 		bounds.y = 52;
 		bounds.width = 2;
@@ -42,7 +38,7 @@ public class Ganja extends StaticEntity{
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(texture, (int) (x - Handler.getInstance().getGameCamera().getxOffset()), (int) (y - Handler.getInstance().getGameCamera().getyOffset()), null);
+		g.drawImage(texture, (int) (x - GameCamera.getInstance().getxOffset()), (int) (y - GameCamera.getInstance().getyOffset()), null);
 	}
 
 }

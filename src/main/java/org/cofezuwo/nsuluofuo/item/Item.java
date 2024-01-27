@@ -5,7 +5,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import org.cofezuwo.nsuluofuo.graphics.Assets;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.graphics.GameCamera;
+import org.cofezuwo.nsuluofuo.worlds.World;
 
 public class Item {
 
@@ -41,21 +42,17 @@ public class Item {
 	}
 
 	public void update() {
-		if (Handler.getInstance().getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds) && getId() != 2) {
+		if (World.getInstance().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(bounds) && getId() != 2) {
 			setPickedUp(true);
-			Handler.getInstance().getWorld().getEntityManager().getPlayer().getInventory().addItem(this);
-		}else if((Handler.getInstance().getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds) && getId() == 2)){
+			World.getInstance().getEntityManager().getPlayer().getInventory().addItem(this);
+		}else if((World.getInstance().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(bounds) && getId() == 2)){
 			setPickedUp(true);
-			Handler.getInstance().getWorld().getEntityManager().getPlayer().setMoney(Handler.getInstance().getWorld().getEntityManager().getPlayer().getMoney() + 100);
+			World.getInstance().getEntityManager().getPlayer().setMoney(World.getInstance().getEntityManager().getPlayer().getMoney() + 100);
 		}
 	}
 
 	public void render(Graphics g) {
-		if (Handler.getInstance() == null)
-			return;
-
-		render(g, (int) (x - Handler.getInstance().getGameCamera().getxOffset()), (int) (y - Handler.getInstance().getGameCamera().getyOffset()));
-
+		render(g, x - GameCamera.getInstance().getxOffset(), y - GameCamera.getInstance().getyOffset());
 	}
 
 	public void render(Graphics g, int x, int y) {

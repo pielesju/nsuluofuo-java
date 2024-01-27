@@ -1,16 +1,19 @@
 package org.cofezuwo.nsuluofuo.utils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class Utils {
+
+	private Utils() {
+
+	}
 
 	public static String loadFileAsString(String path) {
 		StringBuilder builder = new StringBuilder();
 
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(Utils.class.getResource(path).getPath()));
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getFileFromResourceAsStream(path), StandardCharsets.UTF_8));
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
 				builder.append(line + "\n");
@@ -33,7 +36,15 @@ public class Utils {
 			return 0;
 		}
 	}
-	
-	
 
+	public static InputStream getFileFromResourceAsStream(String fileName) {
+		ClassLoader classLoader = Utils.class.getClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+		if(null == inputStream) {
+			throw new IllegalArgumentException("file not found: " + fileName);
+		} else {
+			return inputStream;
+		}
+	}
 }

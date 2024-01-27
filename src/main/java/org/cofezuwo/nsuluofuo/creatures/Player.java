@@ -1,38 +1,98 @@
 package org.cofezuwo.nsuluofuo.creatures;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.cofezuwo.nsuluofuo.entities.Entity;
 import org.cofezuwo.nsuluofuo.graphics.Animation;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
+import org.cofezuwo.nsuluofuo.graphics.GameCamera;
+import org.cofezuwo.nsuluofuo.input.KeyManager;
 import org.cofezuwo.nsuluofuo.inventory.Dialog;
 import org.cofezuwo.nsuluofuo.inventory.Inventory;
 import org.cofezuwo.nsuluofuo.inventory.PlayerInfo;
 import org.cofezuwo.nsuluofuo.inventory.Trivel;
 import org.cofezuwo.nsuluofuo.item.Item;
-import org.cofezuwo.nsuluofuo.main.Handler;
 import org.cofezuwo.nsuluofuo.multiplayer.SimpleDualPlayer;
+import org.cofezuwo.nsuluofuo.worlds.World;
 
 public class Player extends Creature {
 
-	private Animation animDown, animUp, animLeft, animRight;
-	private long lastAttackTimer, attackCooldown = 800, attackTimer = attackCooldown;
-	private BufferedImage currentPosition = Assets.playerDown;
-	private int money = 2000;
-	private int maxHealth;
-	private int exp;
-	private int level;
-	private int maxExp;
-	private String name;
-	private Item currentWeapon;
-	private Inventory inventory;
-	private PlayerInfo info;
-	private Trivel trivel;
+	/* animations */
+	@Getter
+	@Setter
+	private Animation animDown;
+	@Getter
+	@Setter
+	private Animation animUp;
+	@Getter
+	@Setter
+	private Animation animLeft;
+	@Getter
+	@Setter
+	private Animation animRight;
 
-	public Player(float x, float y) {
+	/* attack variables */
+	@Getter
+	@Setter
+	private long lastAttackTimer;
+	@Getter
+	@Setter
+	private long attackCooldown = 800;
+	@Getter
+	@Setter
+	private long attackTimer = 800;
+
+	/* current sprite */
+	@Getter
+	@Setter
+	private BufferedImage currentPosition = Assets.playerDown;
+
+	@Getter
+	@Setter
+	private int money = 2000;
+	@Getter
+	@Setter
+	private int maxHealth;
+	@Getter
+	@Setter
+	private int exp;
+
+	private long startTime;
+
+	private int circlesize;
+
+	private boolean expanding = false;
+
+	@Getter
+	@Setter
+	private int level;
+	@Getter
+	@Setter
+	private int maxExp;
+	@Getter
+	@Setter
+	private String name;
+	@Getter
+	@Setter
+	private Item currentWeapon;
+	@Getter
+	@Setter
+	private Inventory inventory;
+	@Getter
+	@Setter
+	private PlayerInfo info;
+	@Getter
+	@Setter
+	private Trivel trivel;
+	@Getter
+	@Setter
+	private GameCamera cam;
+
+	public Player(int x, int y) {
 		super(x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
 		info = new PlayerInfo();
@@ -58,6 +118,7 @@ public class Player extends Creature {
 		setStrength(getCurrentWeapon().getAttack());
 		setLevel(1);
 
+		this.cam = GameCamera.getInstance();
 	}
 
 	@Override
@@ -70,7 +131,7 @@ public class Player extends Creature {
 		animLeft.update();
 		animRight.update();
 		
-		Handler.getInstance().getGameCamera().centerOnEntity(this);
+		cam.centerOnEntity(this);
 		checkAttack();
 		checkEntity();
 
@@ -79,9 +140,9 @@ public class Player extends Creature {
 		trivel.update();
 		
 		//Positionsdaten den Multiplayerklassen geben
-		SimpleDualPlayer.getPlayerL().setPositionX(getX());
-		SimpleDualPlayer.getPlayerL().setPositionY(getY());
-		SimpleDualPlayer.getPlayerL().setName(getName());
+		//SimpleDualPlayer.getPlayerL().setPositionX(getX());
+		//SimpleDualPlayer.getPlayerL().setPositionY(getY());
+		//SimpleDualPlayer.getPlayerL().setName(getName());
 
 	}
 
@@ -94,17 +155,14 @@ public class Player extends Creature {
 		Rectangle attackRectangle = new Rectangle((int) (getX() - 20), (int) (getY() - 20), (int) (getWidth()) + 40,
 				(int) (getHeight() + 40));
 
-		if (Handler.getInstance().getKeyManager().keyJustPressed(KeyEvent.VK_A)) {
+		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_A)) {
+			for (Entity e : World.getInstance().getEntityManager().getEntities()) {
+				if (e.equals(this)) continue;
 
-			System.out.println("A");
-			for (Entity e : Handler.getInstance().getWorld().getEntityManager().getEntities()) {
-				if (e.equals(this)) {
-					continue;
-				}
 				if (e.getCollisionBounds(0, 0).intersects(attackRectangle)) {
 					e.hurt(getStrength());
 
-					Handler.getInstance().getKeyManager().update();
+					KeyManager.getInstance().update();
 					return;
 				}
 				try {
@@ -126,25 +184,21 @@ public class Player extends Creature {
 
 		attackTimer += System.currentTimeMillis() - lastAttackTimer;
 		lastAttackTimer = System.currentTimeMillis();
-		if (attackTimer < attackCooldown) {
-			return;
-		}
-		Rectangle rect = new Rectangle((int) (getX()), (int) (getY()), (int) (getWidth()), (int) (getHeight()));
+
+		if (attackTimer < attackCooldown) return;
+
+		Rectangle rect = new Rectangle(getX(), getY(), getWidth(), getHeight());
 
 		attackTimer = 0;
 
-		for (Entity e : Handler.getInstance().getWorld().getEntityManager().getEntities()) {
-			if (e.equals(this)) {
-				continue;
-			}
+		for (Entity e : World.getInstance().getEntityManager().getEntities()) {
+			if (e.equals(this)) continue;
+
 			if (e.getCollisionBounds(0, 0).intersects(rect)) {
 				setHealth(getHealth() - e.getStrength());
-				System.out.println("AAAAAAAA");
 				return;
 			}
-
 		}
-
 	}
 
 	private void getInput() {
@@ -156,20 +210,20 @@ public class Player extends Creature {
 			return;
 		}
 
-		if (Handler.getInstance().getKeyManager().isUp()) {
+		if (KeyManager.getInstance().isUp()) {
 			setYMove(getYMove() - getSpeed());
 		}
-		if (Handler.getInstance().getKeyManager().isDown()) {
+		if (KeyManager.getInstance().isDown()) {
 			setYMove(getSpeed());
 		}
-		if (Handler.getInstance().getKeyManager().isLeft()) {
+		if (KeyManager.getInstance().isLeft()) {
 			setXMove(getXMove() - getSpeed());
 		}
-		if (Handler.getInstance().getKeyManager().isRight()) {
+		if (KeyManager.getInstance().isRight()) {
 			setXMove(getSpeed());
 		}
 
-		if (Handler.getInstance().getKeyManager().isSpace()) {
+		if (KeyManager.getInstance().isSpace()) {
 			setSpeed(DEFAULT_SPEED * 2);
 			animDown.setSpeed(animDown.DEFAULT_SPEED / 2);
 			animUp.setSpeed(animUp.DEFAULT_SPEED / 2);
@@ -187,14 +241,45 @@ public class Player extends Creature {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(getCurrentAnimationFrame(), (int) (getX() - Handler.getInstance().getGameCamera().getxOffset()),
-				(int) (getY() - Handler.getInstance().getGameCamera().getyOffset()), getWidth(), getHeight(), null);
+		// ATTACK CIRCLE
+		/*if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_A)) {
+			if(circlesize == 128) return;
 
-		inventory.render(g);
-		trivel.render(g);
-		info.render(g);
+			circlesize = 0;
+			if (startTime == 0) {
+				startTime = System.currentTimeMillis();
+			}
+
+			long currentTime = System.currentTimeMillis();
+			long elapsedTime = currentTime - startTime;
+
+			while (KeyManager.getInstance().keyPressed(KeyEvent.VK_A)) {
+				int radius = (int) (128 * (double) elapsedTime / 2000);
+
+				g.setColor(new Color(255, 255, 255, 100));
+				g.fillOval(getX() - cam.getxOffset() - radius, getY() - cam.getyOffset() - radius, 2 * radius, 2 * radius);
+
+				if(KeyManager.getInstance().keyReleased(KeyEvent.VK_A)) {
+					break;
+				}
+			}
+
+		}*/
+
+		//startTime = 0;
+
+		g.drawImage(getCurrentAnimationFrame(), (int) (getX() - cam.getxOffset()),
+				(int) (getY() - cam.getyOffset()), getWidth(), getHeight(), null);
+
+		//inventory.render(g);
+		//trivel.render(g);
+		//info.render(g);
+
+
 
 	}
+
+
 
 	private BufferedImage getCurrentAnimationFrame() {
 		if (getXMove() < 0) {
@@ -219,125 +304,4 @@ public class Player extends Creature {
 	public void postRender(Graphics g) {
 	
 	}
-
-	public Inventory getInventory() {
-		return inventory;
-	}
-
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
-	}
-
-	public int getMoney() {
-		return money;
-	}
-
-	public void setMoney(int money) {
-		this.money = money;
-	}
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
- 	
-	public PlayerInfo getInfo() {
-		return info;
-	}
-
-	public void setInfo(PlayerInfo info) {
-		this.info = info;
-	}
-
-	public int getMaxHealth() {
-		return maxHealth;
-	}
-
-	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
-	}
-
-	public int getExp() {
-		return exp;
-	}
-
-	public int getMaxExp() {
-		return maxExp;
-	}
-
-	public void setExp(int exp) {
-		this.exp = exp;
-	}
-
-	public void setMaxExp(int maxExp) {
-		this.maxExp = maxExp;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public BufferedImage getCurrentPosition() {
-		return currentPosition;
-	}
-
-	public void setCurrentPosition(BufferedImage currentPosition) {
-		this.currentPosition = currentPosition;
-	}
-
-	public Animation getAnimDown() {
-		return animDown;
-	}
-
-	public Animation getAnimUp() {
-		return animUp;
-	}
-
-	public Animation getAnimLeft() {
-		return animLeft;
-	}
-
-	public Animation getAnimRight() {
-		return animRight;
-	}
-
-	public void setAnimDown(Animation animDown) {
-		this.animDown = animDown;
-	}
-
-	public void setAnimUp(Animation animUp) {
-		this.animUp = animUp;
-	}
-
-	public void setAnimLeft(Animation animLeft) {
-		this.animLeft = animLeft;
-	}
-
-	public void setAnimRight(Animation animRight) {
-		this.animRight = animRight;
-	}
-
-	public Item getCurrentWeapon() {
-		return currentWeapon;
-	}
-
-	public void setCurrentWeapon(Item currentWeapon) {
-		this.currentWeapon = currentWeapon;
-	}
-
-	public Trivel getTrivel() {
-		return trivel;
-	}
-
-	public void setTrivel(Trivel trivel) {
-		this.trivel = trivel;
-	}
-
 }

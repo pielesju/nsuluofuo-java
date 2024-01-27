@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 
 public class KeyManager implements KeyListener {
 
+	private static KeyManager instance;
+
 	private boolean[] keys, justPressed, cantPress;
 	private boolean up, down, left, right, space;
 	private boolean w, a, s, d ,f;
@@ -92,10 +94,18 @@ public class KeyManager implements KeyListener {
 		this.f = f;
 	}
 
-	public KeyManager() {
+	private KeyManager() {
 		keys = new boolean[256];
 		justPressed = new boolean[keys.length];
 		cantPress = new boolean[keys.length];
+	}
+
+	public static KeyManager getInstance() {
+		if(null == instance) {
+			instance = new KeyManager();
+		}
+
+		return instance;
 	}
 	
 	public boolean keyJustPressed(int keyCode){
@@ -147,6 +157,19 @@ public class KeyManager implements KeyListener {
 			keys[e.getKeyCode()] = false;
 			keys[5] = true;
 		}
+	}
+
+	public void keyPressed(int e) {
+
+			keys[e] = true;
+
+
+	}
+
+
+	public void keyReleased(int e) {
+			keys[e] = false;
+			keys[5] = true;
 	}
 
 	@Override

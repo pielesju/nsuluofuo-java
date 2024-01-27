@@ -5,33 +5,43 @@ import java.awt.Graphics;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.cofezuwo.nsuluofuo.creatures.Malenica;
 import org.cofezuwo.nsuluofuo.creatures.NPC;
 import org.cofezuwo.nsuluofuo.creatures.Player;
 import org.cofezuwo.nsuluofuo.creatures.Player2;
 import org.cofezuwo.nsuluofuo.entities.EntityManager;
+import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tiles;
-import org.cofezuwo.nsuluofuo.item.Item;
 import org.cofezuwo.nsuluofuo.item.ItemManager;
-import org.cofezuwo.nsuluofuo.item.Trivel;
-import org.cofezuwo.nsuluofuo.main.Handler;
+import org.cofezuwo.nsuluofuo.main.Game;
 import org.cofezuwo.nsuluofuo.statics.Ganja;
-import org.cofezuwo.nsuluofuo.statics.Tree;
 import org.cofezuwo.nsuluofuo.story.QuestManager;
 import org.cofezuwo.nsuluofuo.utils.Utils;
 
 
 public class World {
 
-	private int width, height;
-	private int spawnX, spawnY;
-	private int spawnX2, spawnY2;
-	private String name, name2;
-	private int health, health2;
+	private static World instance;
+
+	@Getter @Setter
+	private int width;
+	@Getter @Setter
+	private int height;
+	private int spawnX;
+	private int spawnY;
+	private int spawnX2;
+	private int spawnY2;
+
+	@Getter
+	private String name;
+	private String name2;
 	private int[][] tiles;
-	private Item trivel;
+	@Getter
 	private EntityManager entityManager;
+	@Getter
 	private QuestManager questManager;
 	private Color daycolor;
 	private Date currentDate = new Date();
@@ -39,6 +49,7 @@ public class World {
 	private String formattedDate = sdf.format(currentDate);
 	private int time = Integer.parseInt(formattedDate);
 	private ItemManager itemManager;
+	private GameCamera cam;
 
 	public void update() {
 		entityManager.update();
@@ -48,21 +59,22 @@ public class World {
 
 	public void render(Graphics g) {
 
-		int xStart = (int) Math.max(0, Handler.getInstance().getGameCamera().getxOffset() / Tile.TILEWIDTH);
-		int yStart = (int) Math.max(0, Handler.getInstance().getGameCamera().getyOffset() / Tile.TILEHEIGHT);
-		int xEnd = (int) Math.min(width,
-				(Handler.getInstance().getGameCamera().getxOffset() + Handler.getInstance().getWidth()) / Tile.TILEWIDTH + 1);
-		int yEnd = (int) Math.min(height,
-				(Handler.getInstance().getGameCamera().getyOffset() + Handler.getInstance().getHeight()) / Tile.TILEHEIGHT + 1);
+
+
+		int xStart = Math.max(0, cam.getxOffset() / 32);
+		int yStart = Math.max(0, cam.getyOffset() / 32);
+		int xEnd = Math.min(width, (cam.getxOffset() + 640) / Tile.TILEWIDTH + 1);
+		int yEnd = Math.min(height, (cam.getyOffset() + 480) / Tile.TILEHEIGHT + 1);
 
 		for (int y = yStart; y < yEnd; y++) {
 			for (int x = xStart; x < xEnd; x++) {
-				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - Handler.getInstance().getGameCamera().getxOffset()),
-						(int) (y * Tile.TILEHEIGHT - Handler.getInstance().getGameCamera().getyOffset()));
+				getTile(x, y).render(g,
+						x * Tile.TILEWIDTH - cam.getxOffset(),
+						y * Tile.TILEHEIGHT - cam.getyOffset());
 			}
 		}
+
 		itemManager.render(g);
-		
 		entityManager.render(g);
 		questManager.render(g);
 		g.setColor(daycolor);
@@ -71,15 +83,16 @@ public class World {
 
 	public Tile getTile(int x, int y) {
 
-		if (x < 0 || y < 0 || x >= width || y >= height) {
+		// ????
+		/*if (x < 0 || y < 0 || x >= width || y >= height) {
 			return Tiles.tiles[0];
-		}
+		}*/
 
-		Tile t = Tiles.tiles[tiles[x][y]];
-		if (t == null) {
+		//Tile t =
+		/*if (t == null) {
 			return Tiles.tiles[0];
-		}
-		return t;
+		}*/
+		return Tiles.tiles[tiles[x][y]];
 	}
 
 	private void loadWorld(String path) {
@@ -97,12 +110,12 @@ public class World {
 		tiles = new int[width][height];
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 8]);
+				tiles[x][y] = Integer.parseInt(tokens[(x + y * width) + 8]);
 			}
 		}
 	}
 
-	public World(String path) {
+	private World() {
 		if((time >= 17  &&  time <= 20) || (time >= 6 && time  <= 8)) {
 			daycolor = new Color(255,0,0,75);
 		}else if(time>= 20 || time<=6) {
@@ -114,21 +127,13 @@ public class World {
 		}
 		entityManager = new EntityManager(new Player(spawnX, spawnY), new Player2(spawnX2, spawnY2));
 		questManager = new QuestManager();
-		
+		questManager.setActive(false);
+		cam = GameCamera.getInstance();
+
 		itemManager = new ItemManager();
-		trivel = new Trivel();
-		
-		/* Statics */
-		
-		drawTrees();
-		itemManager.addItem(trivel);
-		
-		//Mobs
-		
-		drawMobs();
-		
-		//NPC's
-		
+
+		entityManager.addEntity(new Ganja(12, 12, width, height));
+
 		entityManager.addEntity(new NPC(6, 3, "Pieles mit der Trivel", new String[] {"Ich hasse dich, du dreckiger " +
 				"Hurensohn",
 				"Du Spasst", "For Real... Realtalk jetzt",
@@ -144,96 +149,26 @@ public class World {
 				"Ich bin nur ma�los entt�uscht von dir"}));
 		
 		
-		loadWorld(path);
+		loadWorld("worlds/world1.txt");
 		entityManager.getPlayer().setX(spawnX * entityManager.getPlayer().getWidth());
 		entityManager.getPlayer().setY(spawnY * entityManager.getPlayer().getWidth());
 		
 		entityManager.getPlayer2().setX(spawnX2 * entityManager.getPlayer2().getWidth());
 		entityManager.getPlayer2().setY(spawnY2 * entityManager.getPlayer2().getWidth());
+
+
 		
-		System.out.println("[Player1] " + name +  "\n[Player2] " + name2);
+
 		
 		
 		
 	}
-	
-	private void drawTrees(){
-		entityManager.addEntity(new Tree(6, 0, width, height));
-		entityManager.addEntity(new Ganja(7, 0, width, height));
-		entityManager.addEntity(new Tree(7, 1, width, height));
-		entityManager.addEntity(new Ganja(8, 2, width, height));
-		entityManager.addEntity(new Tree(9, 2, width, height));
-		entityManager.addEntity(new Ganja(10,3, width, height));
-		entityManager.addEntity(new Ganja(11,3, width, height));
-		entityManager.addEntity(new Ganja(11,13, width, height));
-		
-		for(int x = 15; x<5; x++) {
-			for(int y = 1; y < 10; y++) {
-				entityManager.addEntity(new Ganja(5+x,5+y,width,height));
-			}
+
+	public static World getInstance() {
+		if(null == instance) {
+			instance = new World();
 		}
+
+		return instance;
 	}
-	
-	private void drawMobs(){
-		
-		
-	}
-	
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
-
-	}
-
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-
-
-	public ItemManager getItemManager() {
-		return itemManager;
-	} 
-
-	public void setItemManager(ItemManager itemManager) {
-		this.itemManager = itemManager;
-	}
-
-	public int getHealth() {
-		return health;
-	}
-
-	public void setHealth(int health) {
-		this.health = health;
-	}
-
-	public int getHealth2() {
-		return health2;
-	}
-
-	public void setHealth2(int health2) {
-		this.health2 = health2;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getName2() {
-		return name2;
-	}
-
-	public void setName2(String name2) {
-		this.name2 = name2;
-	}
-	
-	
-
 }
