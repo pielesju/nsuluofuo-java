@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
 import org.cofezuwo.nsuluofuo.worlds.World;
@@ -59,7 +59,7 @@ public class Trivel {
 		
 	}
 	
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		if (!active) return;
 
 		renderTrivelBackground(g);
@@ -75,12 +75,12 @@ public class Trivel {
 		g.drawString( "" + (this.page + 1), 600, 442, false, Color.BLACK, Assets.smallText);
 	}
 
-	private void renderTrivelPage0(AbstractTrivialGraphics g) {
+	private void renderTrivelPage0(ATG g) {
 		g.drawString( "The Trivle", 175, 50, true, Color.BLACK, Assets.text);
 		g.drawString( "Hello World", 175, 70, true, Color.BLACK, Assets.smallText);
 	}
 
-	private void renderTrivelPage1(AbstractTrivialGraphics g) {
+	private void renderTrivelPage1(ATG g) {
 		g.drawString( "Active Quests", 175, 50, true, Color.BLACK, Assets.text);
 
 		String[] quests = World.getInstance().getQuestManager().getActiveQuests().split("\n");
@@ -93,7 +93,7 @@ public class Trivel {
 
 	}
 
-	private void renderTrivelPage2(AbstractTrivialGraphics g) {
+	private void renderTrivelPage2(ATG g) {
 		g.drawString( "Not Available Quests", 175, 50, true, Color.BLACK, Assets.text);
 
 		String[] quests = World.getInstance().getQuestManager().getNotAvailableQuests().split("\n");
@@ -105,7 +105,7 @@ public class Trivel {
 		}
 	}
 
-	private void renderTrivelPage3(AbstractTrivialGraphics g) {
+	private void renderTrivelPage3(ATG g) {
 		g.drawString( "Completed Quests", 175, 50, true, Color.BLACK, Assets.text);
 
 		String[] quests = World.getInstance().getQuestManager().getDoneQuests().split("\n");
@@ -117,7 +117,7 @@ public class Trivel {
 		}
 	}
 
-	private void renderTrivelBackground(AbstractTrivialGraphics g) {
+	private void renderTrivelBackground(ATG g) {
 		g.fillRoundRect(20, 20, 600, 440, 5, 5, Color.BLUE);
 		g.fillRoundRect(30, 30, 580, 420, 5, 5, new Color(245,245,220));
 		g.drawLine(319, 30, 319, 450, Color.BLACK);

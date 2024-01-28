@@ -1,13 +1,9 @@
 package org.cofezuwo.nsuluofuo.entities;
 
-import java.awt.Graphics;
 import java.util.*;
-
-import lombok.Getter;
-import org.cofezuwo.nsuluofuo.creatures.NPC;
 import org.cofezuwo.nsuluofuo.creatures.Player;
 import org.cofezuwo.nsuluofuo.creatures.Player2;
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 
 public class EntityManager {
 	private Player player;
@@ -30,12 +26,9 @@ public class EntityManager {
 		Collections.sort(entities, (e1, e2) -> Integer.compare(e1.getY() + e1.getHeight(), e2.getY() + e2.getHeight()));
 	}
 
-	public void render(AbstractTrivialGraphics g) {
-		for (Entity e : entities) {
+	public void render(ATG g) {
+		for (Entity e : entities)
 			e.render(g);
-		}
-
-		player.postRender(g);
 	}
 
 	public void addEntity(Entity e) {

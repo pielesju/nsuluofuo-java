@@ -1,6 +1,6 @@
 package org.cofezuwo.nsuluofuo.item;
 
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class ItemManager {
 		}
 	}
 	
-	public void render(AbstractTrivialGraphics g){
+	public void render(ATG g){
 		for(Item item : items){
 			item.render(g);
 		}

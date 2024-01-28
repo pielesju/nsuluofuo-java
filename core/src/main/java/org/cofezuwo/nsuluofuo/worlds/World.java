@@ -15,7 +15,7 @@ import org.cofezuwo.nsuluofuo.creatures.NPC;
 import org.cofezuwo.nsuluofuo.creatures.Player;
 import org.cofezuwo.nsuluofuo.creatures.Player2;
 import org.cofezuwo.nsuluofuo.entities.EntityManager;
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tiles;
@@ -56,7 +56,7 @@ public class World {
 	private ItemManager itemManager;
 	private GameCamera cam;
 
-	private AbstractTrivialGraphics g;
+	private ATG g;
 
 	public void update() {
 		entityManager.update();
@@ -64,7 +64,7 @@ public class World {
 		itemManager.update();
 	}
 
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		this.g = g;
 
 

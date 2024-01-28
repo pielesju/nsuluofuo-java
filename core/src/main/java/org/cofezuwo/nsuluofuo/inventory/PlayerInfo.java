@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
@@ -57,7 +57,7 @@ public class PlayerInfo {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		System.out.println("E");
 		if (!active) {
 			return;

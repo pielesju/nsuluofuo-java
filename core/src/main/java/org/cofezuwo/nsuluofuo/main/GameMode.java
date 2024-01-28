@@ -1,7 +1,7 @@
 package org.cofezuwo.nsuluofuo.main;
 
 import lombok.Getter;
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.inventory.Dialog;
@@ -29,7 +29,7 @@ public class GameMode {
 		world.update();
 	}
 
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		world.render(g);
 
 		renderHealth(g, world.getEntityManager().getPlayer().getHealth());
@@ -37,7 +37,7 @@ public class GameMode {
 		Dialog.render(g);
 	}
 
-	private void renderHealth(AbstractTrivialGraphics g, int health) {
+	private void renderHealth(ATG g, int health) {
 		if(health <= 0) return;
 
 		int fullHearts = health / 2;

@@ -1,10 +1,9 @@
 package org.cofezuwo.nsuluofuo.graphics.tiles;
 
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 
-import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 public class Tile {
 
@@ -12,13 +11,13 @@ public class Tile {
 	public static final int TILEHEIGHT = 32;
 
 	private int id;
-	private BufferedImage texture;
+	private Image texture;
 	private int width;
 	private int height;
 	private boolean solid;
 	private Rectangle bounds;
 
-	public Tile(int id, BufferedImage texture, int width, int height, boolean solid) {
+	public Tile(int id, Image texture, int width, int height, boolean solid) {
 		this.id = id;
 		this.texture = texture;
 		this.width = width;
@@ -31,7 +30,7 @@ public class Tile {
 		// not supported
 	}
 
-	public void render(AbstractTrivialGraphics g, int x, int y) {
+	public void render(ATG g, int x, int y) {
 		g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT);
 	}
 

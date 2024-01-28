@@ -1,8 +1,8 @@
 package org.cofezuwo.nsuluofuo.creatures;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Animation;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
@@ -11,7 +11,7 @@ import org.cofezuwo.nsuluofuo.multiplayer.MpConnection;
 import org.cofezuwo.nsuluofuo.multiplayer.SimpleDualPlayer;
 
 public class Player2 extends Creature {
-	private BufferedImage currentPosition = Assets.playerDown;
+	private Image currentPosition = Assets.playerDown;
 	private Animation animDown, animUp, animLeft, animRight;
 	private GameCamera cam;
 
@@ -90,7 +90,7 @@ public class Player2 extends Creature {
 	}
 
 	@Override
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		if(MpConnection.online){
 			g.drawImage(getCurrentAnimationFrame(), (int) (getX() - cam.getxOffset()),
 					(int) (getY() - cam.getyOffset()), getWidth(), getHeight());
@@ -101,7 +101,7 @@ public class Player2 extends Creature {
 
 	}
 
-	private BufferedImage getCurrentAnimationFrame() {
+	private Image getCurrentAnimationFrame() {
 		if (KeyManager.getInstance().isA()) {
 			currentPosition = animLeft.getCurrentFrame();
 		} else if (KeyManager.getInstance().isD()) {

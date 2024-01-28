@@ -1,32 +1,42 @@
 package org.cofezuwo.nsuluofuo.graphics;
 
 import java.awt.*;
-import lombok.Getter;
-import lombok.Setter;
+
 import org.cofezuwo.nsuluofuo.input.KeyManager;
 
-public class AbstractTrivialGraphics {
+public class ATGAWT implements ATG {
 
-    @Setter
+
     private Graphics graphics;
 
-    @Getter
-    private final Display display;
+    private final DisplaySwing displaySwing;
 
     private final int width;
     private final int height;
 
+    public void setGraphics(Graphics g) {
+        this.graphics = g;
+    }
 
-    public AbstractTrivialGraphics(String windowTitle, int windowWidth, int windowHeight) {
+
+    public ATGAWT(String windowTitle, int windowWidth, int windowHeight) {
         KeyManager keyManager = KeyManager.getInstance();
 
         this.width = windowWidth;
         this.height = windowHeight;
 
-        display = new Display(windowTitle, windowWidth, windowHeight);
-        display.getFrame().addKeyListener(keyManager);
-        display.getCanvas().setVisible(true);
+        displaySwing = new DisplaySwing(windowTitle, windowWidth, windowHeight);
+        displaySwing.getFrame().addKeyListener(keyManager);
+        displaySwing.getCanvas().setVisible(true);
 
+    }
+
+    public Graphics getGraphics() {
+        return this.graphics;
+    }
+
+    public DisplaySwing getDisplay() {
+        return this.displaySwing;
     }
 
     public void clear() {

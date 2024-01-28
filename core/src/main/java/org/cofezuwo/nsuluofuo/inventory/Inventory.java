@@ -1,6 +1,6 @@
 package org.cofezuwo.nsuluofuo.inventory;
 
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
 import org.cofezuwo.nsuluofuo.item.Item;
@@ -119,7 +119,7 @@ public class Inventory {
 
 	}
 
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		if (!active) {
 			return;
 		}

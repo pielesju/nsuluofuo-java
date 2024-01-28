@@ -1,5 +1,7 @@
 package org.cofezuwo.nsuluofuo.graphics;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.cofezuwo.nsuluofuo.entities.Entity;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
 import org.cofezuwo.nsuluofuo.main.Game;
@@ -7,50 +9,47 @@ import org.cofezuwo.nsuluofuo.worlds.World;
 
 public class GameCamera {
 
+	static {
+		System.load("/home/julian/nsuluofuo-java/core/target/classes/game_camera.so");
+	}
+
+
+
 	private static GameCamera instance;
 
+	@Getter
+	@Setter
 	private int xOffset;
+	@Getter
+	@Setter
 	private int yOffset;
 
+	//public native void move(int xAmt, int yAmt);
+	//public native void centerOnEntity()
+
 	public void move(int xAmt, int yAmt) {
-		setxOffset(getxOffset() + xAmt);
-		setyOffset(getyOffset() + yAmt);
+		setXOffset(getXOffset() + xAmt);
+		setYOffset(getYOffset() + yAmt);
 		checkBlankSpace();
 	}
 
-	public int getxOffset() {
-		return xOffset;
-	}
-
-	public void setxOffset(int xOffset) {
-		this.xOffset = xOffset;
-	}
-
-	public int getyOffset() {
-		return yOffset;
-	}
-
-	public void setyOffset(int yOffset) {
-		this.yOffset = yOffset;
-	}
-
 	public void centerOnEntity(Entity e) {
-		setxOffset(e.getX() - Game.getInstance().getWidth() / 2 + e.getWidth() / 2);
-		setyOffset(e.getY() - Game.getInstance().getHeight() / 2 + e.getHeight() / 2);
+		setXOffset(e.getX() - Game.getInstance().getWidth() / 2 + e.getWidth() / 2);
+		setYOffset(e.getY() - Game.getInstance().getHeight() / 2 + e.getHeight() / 2);
 		checkBlankSpace();
 	}
 	
 	public void checkBlankSpace(){
-		if(getxOffset() < 0) setxOffset(0);
+		if(getXOffset() < 0) setXOffset(0);
 
-		if(getxOffset() > World.getInstance().getWidth() * Tile.TILEWIDTH - Game.getInstance().getWidth()){
-			setxOffset(World.getInstance().getWidth() * Tile.TILEWIDTH - Game.getInstance().getWidth());
+		if(getXOffset() > World.getInstance().getWidth() * Tile.TILEWIDTH - Game.getInstance().getWidth()){
+			setXOffset(World.getInstance().getWidth() * Tile.TILEWIDTH - Game.getInstance().getWidth());
 		}
 
-		if(getyOffset() < 0) setyOffset(0);
+		if(getYOffset() < 0) setYOffset(0);
 
-		if(getyOffset() > World.getInstance().getHeight() * Tile.TILEHEIGHT - Game.getInstance().getHeight()){
-			setyOffset(World.getInstance().getHeight() * Tile.TILEHEIGHT - Game.getInstance().getHeight());
+		if(getYOffset() > World.getInstance().getHeight() * Tile.TILEHEIGHT - Game.getInstance().getHeight()){
+			setYOffset(World.getInstance().getHeight() * Tile.TILEHEIGHT - Game.getInstance().getHeight());
 		}
 	}
 

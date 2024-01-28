@@ -1,6 +1,7 @@
 package org.cofezuwo.nsuluofuo.graphics;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class Assets {
@@ -122,7 +123,7 @@ public class Assets {
 		head = FontLoader.loadFont(SAO_FONT_FILE, 128);
 		text = FontLoader.loadFont(SAO_FONT_FILE, 64);
 		smallText = FontLoader.loadFont(SAO_FONT_FILE, 24);
-		
+
 		BufferedImage player = ImageLoader.loadImage("/textures/Player.png");
 		BufferedImage npc = ImageLoader.loadImage("/textures/NPC.png");
 		BufferedImage terrain = ImageLoader.loadImage("/textures/terrain.png");
@@ -136,13 +137,13 @@ public class Assets {
 		BufferedImage ivoM = ImageLoader.loadImage("/textures/mmm.jpg");
 
 		/* big pictures */
-			
+
 		ivo = uli.getSubimage(0, 0, 640, 480);
 		thc = thct.getSubimage(0,0, 100, 80);
 		ivof = ivoM.getSubimage(0, 0, 120, 120);
-		
+
 		/* Health*/
-		
+
 		heart = health.getSubimage(0, 0, 16, 16);
 		hheart = health.getSubimage(16,0,16,16);
 
@@ -171,27 +172,27 @@ public class Assets {
 		player_up = new BufferedImage[2];
 		player_up[0] = player.getSubimage(0, 3 * HEIGHT, WIDTH, HEIGHT);
 		player_up[1] = player.getSubimage(2 * WIDTH, 3 * HEIGHT, WIDTH, HEIGHT);
-		
+
 		ivo_up = new BufferedImage[2];
 		ivo_up[0] = mal.getSubimage(0, 3 * HEIGHT, WIDTH, HEIGHT);
 		ivo_up[1] = mal.getSubimage(2 * WIDTH, 3 * HEIGHT, WIDTH, HEIGHT);
 
 		player_left = new BufferedImage[2];
 		player_left[0] = player.getSubimage(0, HEIGHT, WIDTH, HEIGHT);
-		player_left[1] = player.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT); 
-		
+		player_left[1] = player.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT);
+
 		ivo_left = new BufferedImage[2];
 		ivo_left[0] = mal.getSubimage(0, HEIGHT, WIDTH, HEIGHT);
-		ivo_left[1] = mal.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT); 
+		ivo_left[1] = mal.getSubimage(2 * WIDTH, HEIGHT, WIDTH, HEIGHT);
 
 		player_right = new BufferedImage[2];
 		player_right[0] = player.getSubimage(0, 2 * HEIGHT, WIDTH, HEIGHT);
 		player_right[1] = player.getSubimage(2 * WIDTH, 2 * HEIGHT, WIDTH, HEIGHT);
-		
+
 		ivo_right = new BufferedImage[2];
 		ivo_right[0] = mal.getSubimage(0, 2 * HEIGHT, WIDTH, HEIGHT);
 		ivo_right[1] = mal.getSubimage(2 * WIDTH, 2 * HEIGHT, WIDTH, HEIGHT);
-		
+
 		watera = new BufferedImage[32];
 		watera[0] = aWater.getSubimage(0, 0, WIDTH, HEIGHT);
 		watera[1] = aWater.getSubimage(0, HEIGHT, WIDTH, HEIGHT);
@@ -227,7 +228,7 @@ public class Assets {
 		watera[31] = aWater.getSubimage(0, 31*HEIGHT, WIDTH, HEIGHT);
 
 		/* Items */
-		
+
 		trivel = items.getSubimage(0, 0, WIDTH, HEIGHT);
 		money = items.getSubimage(0, HEIGHT, WIDTH, HEIGHT);
 		triviartefakt = items.getSubimage(0, 2* HEIGHT, WIDTH, HEIGHT);
@@ -236,7 +237,7 @@ public class Assets {
 		tsword = items.getSubimage(WIDTH, 2 * HEIGHT, WIDTH, HEIGHT);
 		jibbet = items.getSubimage(2* WIDTH, 0, WIDTH, HEIGHT);
 		monster = items.getSubimage(2* WIDTH, HEIGHT, WIDTH, HEIGHT);
-		
+
 
 		/* Entities */
 
@@ -267,9 +268,9 @@ public class Assets {
 		mNpcLeft = npc.getSubimage(WIDTH, HEIGHT, WIDTH, HEIGHT);
 		mNpcRight = npc.getSubimage(WIDTH, 2 * HEIGHT, WIDTH, HEIGHT);
 		mNpcUp = npc.getSubimage(WIDTH, 3 * HEIGHT, WIDTH, HEIGHT);
-		
+
 		// Ivo Malenica
-		
+
 		iMDown = mal.getSubimage(WIDTH, 0, WIDTH, HEIGHT);
 		iMLeft = mal.getSubimage(WIDTH, 1 * HEIGHT, WIDTH, HEIGHT);
 		iMRight = mal.getSubimage(WIDTH, 2 * HEIGHT, WIDTH, HEIGHT);

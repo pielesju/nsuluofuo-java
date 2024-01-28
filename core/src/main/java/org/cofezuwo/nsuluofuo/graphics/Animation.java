@@ -1,17 +1,22 @@
 package org.cofezuwo.nsuluofuo.graphics;
 
-import java.awt.image.BufferedImage;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.awt.*;
 
 public class Animation {
-	
+
+	@Getter
+	@Setter
 	private int speed;
 	private int index;
 	public static final int DEFAULT_SPEED = 300;
 	private long lastTime;
 	private long timer;
-	private BufferedImage[] frames;
+	private final Image[] frames;
 	
-	public Animation(int speed, BufferedImage[] frames){
+	public Animation(int speed, Image[] frames){
 		this.speed = speed;
 		this.frames = frames;
 		index = 0;
@@ -32,15 +37,7 @@ public class Animation {
 		}
 	}
 	
-	public BufferedImage getCurrentFrame(){
+	public Image getCurrentFrame(){
 		return frames[index];
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
 	}
 }

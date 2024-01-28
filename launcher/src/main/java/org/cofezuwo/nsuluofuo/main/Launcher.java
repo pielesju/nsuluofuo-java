@@ -1,15 +1,10 @@
 package org.cofezuwo.nsuluofuo.main;
 
 import java.awt.Color;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-
 import static javax.swing.JFrame.*;
 
 public class Launcher {

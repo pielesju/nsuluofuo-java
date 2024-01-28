@@ -2,12 +2,12 @@ package org.cofezuwo.nsuluofuo.creatures;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.cofezuwo.nsuluofuo.entities.Entity;
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Animation;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
@@ -49,7 +49,7 @@ public class Player extends Creature {
 	/* current sprite */
 	@Getter
 	@Setter
-	private BufferedImage currentPosition = Assets.playerDown;
+	private Image currentPosition = Assets.playerDown;
 
 	@Getter
 	@Setter
@@ -60,12 +60,6 @@ public class Player extends Creature {
 	@Getter
 	@Setter
 	private int exp;
-
-	private long startTime;
-
-	private int circlesize;
-
-	private boolean expanding = false;
 
 	@Getter
 	@Setter
@@ -105,10 +99,10 @@ public class Player extends Creature {
 		bounds.width = 16;
 		bounds.height = 16;
 
-		animDown = new Animation(animDown.DEFAULT_SPEED, Assets.player_down);
-		animUp = new Animation(animUp.DEFAULT_SPEED, Assets.player_up);
-		animLeft = new Animation(animLeft.DEFAULT_SPEED, Assets.player_left);
-		animRight = new Animation(animRight.DEFAULT_SPEED, Assets.player_right);
+		animDown = new Animation(Animation.DEFAULT_SPEED, Assets.player_down);
+		animUp = new Animation(Animation.DEFAULT_SPEED, Assets.player_up);
+		animLeft = new Animation(Animation.DEFAULT_SPEED, Assets.player_left);
+		animRight = new Animation(Animation.DEFAULT_SPEED, Assets.player_right);
 
 		setMaxExp(100);
 		setExp(1);
@@ -138,12 +132,6 @@ public class Player extends Creature {
 		info.update();
 		inventory.update();
 		trivel.update();
-		
-		//Positionsdaten den Multiplayerklassen geben
-		//SimpleDualPlayer.getPlayerL().setPositionX(getX());
-		//SimpleDualPlayer.getPlayerL().setPositionY(getY());
-		//SimpleDualPlayer.getPlayerL().setName(getName());
-
 	}
 
 	public void checkAttack() {
@@ -152,8 +140,8 @@ public class Player extends Creature {
 			return;
 		}
 
-		Rectangle attackRectangle = new Rectangle((int) (getX() - 20), (int) (getY() - 20), (int) (getWidth()) + 40,
-				(int) (getHeight() + 40));
+		Rectangle attackRectangle = new Rectangle(getX() - 20, getY() - 20, getWidth() + 40,
+				getHeight() + 40);
 
 		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_A)) {
 			for (Entity e : World.getInstance().getEntityManager().getEntities()) {
@@ -225,49 +213,22 @@ public class Player extends Creature {
 
 		if (KeyManager.getInstance().isSpace()) {
 			setSpeed(DEFAULT_SPEED * 2);
-			animDown.setSpeed(animDown.DEFAULT_SPEED / 2);
-			animUp.setSpeed(animUp.DEFAULT_SPEED / 2);
-			animLeft.setSpeed(animLeft.DEFAULT_SPEED / 2);
-			animRight.setSpeed(animRight.DEFAULT_SPEED / 2);
+			animDown.setSpeed(Animation.DEFAULT_SPEED / 2);
+			animUp.setSpeed(Animation.DEFAULT_SPEED / 2);
+			animLeft.setSpeed(Animation.DEFAULT_SPEED / 2);
+			animRight.setSpeed(Animation.DEFAULT_SPEED / 2);
 		} else {
 			setSpeed(DEFAULT_SPEED);
-			animDown.setSpeed(animDown.DEFAULT_SPEED);
-			animUp.setSpeed(animUp.DEFAULT_SPEED);
-			animLeft.setSpeed(animLeft.DEFAULT_SPEED);
-			animRight.setSpeed(animRight.DEFAULT_SPEED);
+			animDown.setSpeed(Animation.DEFAULT_SPEED);
+			animUp.setSpeed(Animation.DEFAULT_SPEED);
+			animLeft.setSpeed(Animation.DEFAULT_SPEED);
+			animRight.setSpeed(Animation.DEFAULT_SPEED);
 		}
 
 	}
 
 	@Override
-	public void render(AbstractTrivialGraphics g) {
-		// ATTACK CIRCLE
-		/*if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_A)) {
-			if(circlesize == 128) return;
-
-			circlesize = 0;
-			if (startTime == 0) {
-				startTime = System.currentTimeMillis();
-			}
-
-			long currentTime = System.currentTimeMillis();
-			long elapsedTime = currentTime - startTime;
-
-			while (KeyManager.getInstance().keyPressed(KeyEvent.VK_A)) {
-				int radius = (int) (128 * (double) elapsedTime / 2000);
-
-				g.setColor(new Color(255, 255, 255, 100));
-				g.fillOval(getX() - cam.getxOffset() - radius, getY() - cam.getyOffset() - radius, 2 * radius, 2 * radius);
-
-				if(KeyManager.getInstance().keyReleased(KeyEvent.VK_A)) {
-					break;
-				}
-			}
-
-		}*/
-
-		//startTime = 0;
-
+	public void render(ATG g) {
 		g.drawImage(getCurrentAnimationFrame(), getX() - cam.getxOffset(),
 				getY() - cam.getyOffset(), getWidth(), getHeight());
 
@@ -281,7 +242,7 @@ public class Player extends Creature {
 
 
 
-	private BufferedImage getCurrentAnimationFrame() {
+	private Image getCurrentAnimationFrame() {
 		if (getXMove() < 0) {
 			currentPosition = animLeft.getCurrentFrame();
 		} else if (getXMove() > 0) {
@@ -299,9 +260,5 @@ public class Player extends Creature {
 
 		return currentPosition;
 
-	}
-
-	public void postRender(AbstractTrivialGraphics g) {
-	
 	}
 }

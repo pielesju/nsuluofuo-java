@@ -2,9 +2,9 @@ package org.cofezuwo.nsuluofuo.creatures;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
@@ -16,12 +16,12 @@ public class NPC extends Creature {
 
 	protected String name;
 
-	protected BufferedImage portrait;
+	protected Image portrait;
 
 	protected String[] text;
 
 	protected Rectangle sbounds;
-	private BufferedImage currentPosition = Assets.mNpcDown;
+	private Image currentPosition = Assets.mNpcDown;
 
 	public NPC(int x, int y, String name, String[] text) {
 		super(x , y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
@@ -66,7 +66,7 @@ public class NPC extends Creature {
 	}
 
 	@Override
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		g.drawImage(currentPosition, getX() - GameCamera.getInstance().getxOffset(),
 				getY() - GameCamera.getInstance().getyOffset(), getWidth(), getHeight());
 	}

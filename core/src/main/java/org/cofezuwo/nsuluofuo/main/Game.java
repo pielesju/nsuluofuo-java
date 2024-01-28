@@ -2,7 +2,8 @@ package org.cofezuwo.nsuluofuo.main;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
+import org.cofezuwo.nsuluofuo.graphics.ATGAWT;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
 
@@ -29,7 +30,7 @@ public class Game implements Runnable {
 	@Setter
 	private boolean running;
 
-	private AbstractTrivialGraphics g;
+	private ATG g;
 
 	private GameMode gameMode;
 
@@ -56,7 +57,7 @@ public class Game implements Runnable {
 
 	private void initialize() {
 
-		this.g = new AbstractTrivialGraphics(this.title, this.width, this.height);
+		this.g = new ATGAWT(this.title, this.width, this.height);
 
 		Assets.initialize();
 

@@ -68,6 +68,35 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <exec executable="gcc">
+                                    <arg value="-c"/>
+                                    <arg value="native/game_camera.c"/>
+                                    <arg value="-o"/>
+                                    <arg value="target/classes/game_camera.o"/>
+                                </exec>
+                                <exec executable="gcc">
+                                    <arg value="-shared"/>
+                                    <arg value="target/classes/game_camera.o"/>
+                                    <arg value="-o"/>
+                                    <arg value="target/classes/game_camera.so"/>
+                                </exec>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

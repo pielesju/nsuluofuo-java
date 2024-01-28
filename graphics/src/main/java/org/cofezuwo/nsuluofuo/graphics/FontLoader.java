@@ -1,10 +1,7 @@
 package org.cofezuwo.nsuluofuo.graphics;
 
-import org.cofezuwo.nsuluofuo.utils.Utils;
-
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -28,6 +25,10 @@ public class FontLoader {
 		}
 
 		return null;
+	}
+
+	private FontLoader() {
+
 	}
 
 }

@@ -2,9 +2,9 @@ package org.cofezuwo.nsuluofuo.inventory;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
 
@@ -14,7 +14,7 @@ public class Dialog {
 	public static String[] text;
 
 	public static String name;
-	public static BufferedImage portrait;
+	public static Image portrait;
 	private static boolean active;
 
 	public Dialog() {
@@ -31,7 +31,7 @@ public class Dialog {
 		}
 	}
 	
-	public static void render(AbstractTrivialGraphics g) {
+	public static void render(ATG g) {
 		if(!active) {
 			return;
 		}

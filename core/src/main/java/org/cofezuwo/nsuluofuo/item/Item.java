@@ -2,9 +2,9 @@ package org.cofezuwo.nsuluofuo.item;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.worlds.World;
@@ -19,7 +19,7 @@ public class Item {
 	public static Item tSword = new Item(Assets.tsword,"Trivialsword", 100, 0, 50, 3);
 	public static final int ITEMWIDTH = 32, ITEMHEIGHT = 32;
 
-	private BufferedImage texture;
+	private Image texture;
 	private String name;
 	private final int id;
 	private Rectangle bounds;
@@ -29,7 +29,7 @@ public class Item {
 	private int x, y, count;
 	protected boolean pickedUp = false;
 	
-	public Item(BufferedImage texture, String name, int prize, int strength, int attack, int id) {
+	public Item(Image texture, String name, int prize, int strength, int attack, int id) {
 		this.texture = texture;
 		this.prize = prize;
 		this.strength = strength;
@@ -52,11 +52,11 @@ public class Item {
 		}
 	}
 
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		render(g, x - GameCamera.getInstance().getxOffset(), y - GameCamera.getInstance().getyOffset());
 	}
 
-	public void render(AbstractTrivialGraphics g, int x, int y) {
+	public void render(ATG g, int x, int y) {
 		g.drawImage(texture, x, y, ITEMWIDTH, ITEMHEIGHT);
 	}
 
@@ -80,7 +80,7 @@ public class Item {
 		bounds.y = y;
 	}
 
-	public BufferedImage getTexture() {
+	public Image getTexture() {
 		return texture;
 	}
 
@@ -104,7 +104,7 @@ public class Item {
 		return count;
 	}
 
-	public void setTexture(BufferedImage texture) {
+	public void setTexture(Image texture) {
 		this.texture = texture;
 	}
 

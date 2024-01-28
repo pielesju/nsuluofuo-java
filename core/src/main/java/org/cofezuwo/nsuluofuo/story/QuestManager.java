@@ -3,7 +3,7 @@ package org.cofezuwo.nsuluofuo.story;
 import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
 import org.cofezuwo.nsuluofuo.main.Game;
@@ -69,7 +69,7 @@ public class QuestManager {
 		this.activeQuests.clear();
 	}
 
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		if(!this.isActive()) return;
 
 	}

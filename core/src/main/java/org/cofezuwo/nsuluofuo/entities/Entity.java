@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.worlds.World;
 
 public abstract class Entity {
@@ -61,7 +61,7 @@ public abstract class Entity {
 
 	public abstract void update();
 
-	public abstract void render(AbstractTrivialGraphics g);
+	public abstract void render(ATG g);
 
 	public void hurt(int amount) {
 		setHealth(getHealth() - amount);

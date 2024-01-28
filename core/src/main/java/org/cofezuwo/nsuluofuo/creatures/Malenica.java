@@ -2,9 +2,9 @@ package org.cofezuwo.nsuluofuo.creatures;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
-import org.cofezuwo.nsuluofuo.graphics.AbstractTrivialGraphics;
+import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
@@ -13,7 +13,7 @@ import org.cofezuwo.nsuluofuo.worlds.World;
 
 public class Malenica extends NPC {
 	
-	private BufferedImage currentPosition = Assets.iMDown;
+	private Image currentPosition = Assets.iMDown;
 
 
 	public Malenica(int x, int y, String[] text) {
@@ -50,7 +50,7 @@ public class Malenica extends NPC {
 		}
 	}
 	
-	public void render(AbstractTrivialGraphics g) {
+	public void render(ATG g) {
 		g.drawImage(currentPosition, getX() - GameCamera.getInstance().getxOffset(),
 				getY() - GameCamera.getInstance().getyOffset(), getWidth(), getHeight());
 	}
