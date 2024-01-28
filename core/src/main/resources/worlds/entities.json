@@ -1,0 +1,44 @@
+[
+  {
+    "type" : "GANJA",
+    "x": 12,
+    "y": 12
+  },
+  {
+    "type" : "GANJA",
+    "x": 13,
+    "y": 12
+  },
+  {
+    "type" : "GANJA",
+    "x": 14,
+    "y": 12
+  },
+  {
+    "type" : "NPC",
+    "x": 6,
+    "y": 3,
+    "name": "Pieles mit der Trivel",
+    "text": [
+      "Ich hasse dich, du dreckiger Hurensohn",
+      "Du Spasst", "For Real... Realtalk jetzt",
+      "Du geisteskranke Psychoschlampe",
+      "Jo es ist Pieles mit der Trivel",
+      "Wham Wham.. like Every beat, every line...",
+      "Ab jetzt nicht mehr Lenzkirch, sondern Mechernich"
+    ]
+  },
+  {
+    "type" : "MALENICA",
+    "x": 4,
+    "y": 4,
+    "text": [
+      "Konzept klar?",
+      "Ihr mit eurem bekloppten Trivialismus","und eurer scheiß App",
+      "Mir kommts so vor als wär das alles nur ein",
+      "RIESIGER Witz f�r euch",
+      "Ich hasse dich nicht",
+      "Ich bin nur ma�los entt�uscht von dir"
+    ]
+  }
+]
