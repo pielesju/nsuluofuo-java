@@ -1,7 +1,6 @@
 package org.cofezuwo.nsuluofuo.inventory;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import lombok.Getter;
@@ -82,34 +81,20 @@ public class Trivel {
 
 	private void renderTrivelPage1(ATG g) {
 		g.drawString( "Active Quests", 175, 50, true, Color.BLACK, Assets.text);
-
-		String[] quests = World.getInstance().getQuestManager().getActiveQuests().split("\n");
-
-		int y = 70;
-		for(String quest : quests) {
-			g.drawString( quest, 175, y, false, Color.BLACK, Assets.smallText);
-			y += 20;
-		}
-
+		renderQuestText(g, World.getInstance().getQuestManager().getActiveQuests().split("\n"));
 	}
 
 	private void renderTrivelPage2(ATG g) {
 		g.drawString( "Not Available Quests", 175, 50, true, Color.BLACK, Assets.text);
-
-		String[] quests = World.getInstance().getQuestManager().getNotAvailableQuests().split("\n");
-
-		int y = 70;
-		for(String quest : quests) {
-			g.drawString( quest, 175, y, false, Color.BLACK, Assets.smallText);
-			y += 20;
-		}
+		renderQuestText(g, World.getInstance().getQuestManager().getNotAvailableQuests().split("\n"));
 	}
 
 	private void renderTrivelPage3(ATG g) {
 		g.drawString( "Completed Quests", 175, 50, true, Color.BLACK, Assets.text);
+		renderQuestText(g, World.getInstance().getQuestManager().getDoneQuests().split("\n"));
+	}
 
-		String[] quests = World.getInstance().getQuestManager().getDoneQuests().split("\n");
-
+	private void renderQuestText(ATG g, String[] quests) {
 		int y = 70;
 		for(String quest : quests) {
 			g.drawString( quest, 175, y, false, Color.BLACK, Assets.smallText);
@@ -130,10 +115,10 @@ public class Trivel {
 		g.fillRect(328, 466, 8, 8, Color.BLACK);
 
 
-		g.fillRect(305, 467, 6, 6, Color.BLACK);
+		g.fillRect(305, 467, 6, 6, Color.BLUE);
 
-		g.fillRect(317, 467, 6, 6, Color.BLACK);
+		g.fillRect(317, 467, 6, 6, Color.WHITE);
 
-		g.fillRect(329, 467, 6, 6, Color.BLACK);
+		g.fillRect(329, 467, 6, 6, Color.WHITE);
 	}
 }

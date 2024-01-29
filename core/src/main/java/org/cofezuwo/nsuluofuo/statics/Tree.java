@@ -38,7 +38,7 @@ public class Tree extends StaticEntity{
 
 	@Override
 	public void render(ATG g) {
-		g.drawImage(texture, (int) (this.x - GameCamera.getInstance().getxOffset()), (int) (y - GameCamera.getInstance().getyOffset()));
+		g.drawImage(texture, (int) (this.x - GameCamera.getInstance().getXOffset()), (int) (y - GameCamera.getInstance().getYOffset()));
 		
 	}
 

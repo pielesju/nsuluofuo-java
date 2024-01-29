@@ -92,8 +92,8 @@ public class Player2 extends Creature {
 	@Override
 	public void render(ATG g) {
 		if(MpConnection.online){
-			g.drawImage(getCurrentAnimationFrame(), (int) (getX() - cam.getxOffset()),
-					(int) (getY() - cam.getyOffset()), getWidth(), getHeight());
+			g.drawImage(getCurrentAnimationFrame(), (int) (getX() - cam.getXOffset()),
+					(int) (getY() - cam.getYOffset()), getWidth(), getHeight());
 		}else{
 			return;
 		}

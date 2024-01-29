@@ -9,9 +9,9 @@ import org.cofezuwo.nsuluofuo.worlds.World;
 
 public class GameCamera {
 
-	static {
+	/*static {
 		System.load("/home/julian/nsuluofuo-java/core/target/classes/game_camera.so");
-	}
+	}*/
 
 
 
@@ -23,9 +23,6 @@ public class GameCamera {
 	@Getter
 	@Setter
 	private int yOffset;
-
-	//public native void move(int xAmt, int yAmt);
-	//public native void centerOnEntity()
 
 	public void move(int xAmt, int yAmt) {
 		setXOffset(getXOffset() + xAmt);
@@ -42,14 +39,14 @@ public class GameCamera {
 	public void checkBlankSpace(){
 		if(getXOffset() < 0) setXOffset(0);
 
-		if(getXOffset() > World.getInstance().getWidth() * Tile.TILEWIDTH - Game.getInstance().getWidth()){
-			setXOffset(World.getInstance().getWidth() * Tile.TILEWIDTH - Game.getInstance().getWidth());
+		if(getXOffset() > World.getInstance().getWidth() * Tile.TILE_WIDTH - Game.getInstance().getWidth()){
+			setXOffset(World.getInstance().getWidth() * Tile.TILE_WIDTH - Game.getInstance().getWidth());
 		}
 
 		if(getYOffset() < 0) setYOffset(0);
 
-		if(getYOffset() > World.getInstance().getHeight() * Tile.TILEHEIGHT - Game.getInstance().getHeight()){
-			setYOffset(World.getInstance().getHeight() * Tile.TILEHEIGHT - Game.getInstance().getHeight());
+		if(getYOffset() > World.getInstance().getHeight() * Tile.TILE_HEIGHT - Game.getInstance().getHeight()){
+			setYOffset(World.getInstance().getHeight() * Tile.TILE_HEIGHT - Game.getInstance().getHeight());
 		}
 	}
 

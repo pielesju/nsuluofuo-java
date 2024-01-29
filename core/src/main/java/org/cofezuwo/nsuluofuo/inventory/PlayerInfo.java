@@ -1,11 +1,12 @@
+/*
+	cofezuwo.org Nsuluofuo Java Edition
+	Copyright (C) 2017 - 2024 Julian Pieles
+ */
+
 package org.cofezuwo.nsuluofuo.inventory;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
@@ -19,9 +20,6 @@ public class PlayerInfo {
 	private boolean itemScreen;
 	private boolean trivel;
 	private Color color;
-	private Date currentDate = new Date();
-	private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-	private String formattedDate = sdf.format(currentDate);
 
 	public PlayerInfo() {
 		color = new Color(255, 255, 255, 200);
@@ -56,7 +54,6 @@ public class PlayerInfo {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	public void render(ATG g) {
 		System.out.println("E");
 		if (!active) {
@@ -69,32 +66,26 @@ public class PlayerInfo {
 		g.fillRect(304, 466, 8, 8, Color.BLACK);
 		g.fillRect(316, 466, 8, 8, Color.BLACK);
 		g.fillRect(328, 466, 8, 8, Color.BLACK);
-		
 		g.drawString( "HP:", 320, 98, true, Color.gray, Assets.smallText);
 
-		int f = World.getInstance().getEntityManager().getPlayer().getMaxHealth() / World.getInstance().getEntityManager().getPlayer().getHealth();
+		int healthPercentage =
+				World.getInstance().getEntityManager().getPlayer().getMaxHealth() /
+						World.getInstance().getEntityManager().getPlayer().getHealth();
 		g.fillRect(340, 95, 260, 10, Color.gray);
-
-		g.fillRect(340, 95, (int)(260/f), 10, Color.GREEN);
-		
-
+		g.fillRect(340, 95, (int) (260 / healthPercentage), 10, Color.GREEN);
 		g.fillRect(305, 467, 6, 6, Color.WHITE);
-
 		g.fillRect(317, 467, 6, 6, Color.BLUE);
-
 		g.fillRect(329, 467, 6, 6, Color.WHITE);
-
 		g.fillRect(39, 86, 252, 252, Color.BLACK);
-
 		g.fillRect(40, 87, 250, 250, Color.GREEN);
 
 		g.fillRect(
-				(World.getInstance().getEntityManager().getPlayer().getX() + GameCamera.getInstance().getxOffset())/128 + 39,
-				(World.getInstance().getEntityManager().getPlayer().getY() + GameCamera.getInstance().getyOffset())/128 + 49+20+17, 6, 6, Color.BLACK);
+				(World.getInstance().getEntityManager().getPlayer().getX() + GameCamera.getInstance().getXOffset())/128 + 39,
+				(World.getInstance().getEntityManager().getPlayer().getY() + GameCamera.getInstance().getYOffset())/128 + 49+20+17, 6, 6, Color.BLACK);
 
 		g.fillRect(
-				(World.getInstance().getEntityManager().getPlayer().getX() + GameCamera.getInstance().getxOffset())/128 + 40,
-				(World.getInstance().getEntityManager().getPlayer().getY() + GameCamera.getInstance().getyOffset())/128 + 50+20 +17, 4, 4, Color.WHITE);
+				(World.getInstance().getEntityManager().getPlayer().getX() + GameCamera.getInstance().getXOffset())/128 + 40,
+				(World.getInstance().getEntityManager().getPlayer().getY() + GameCamera.getInstance().getYOffset())/128 + 50+20 +17, 4, 4, Color.WHITE);
 		
 		
 		

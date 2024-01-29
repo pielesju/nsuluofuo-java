@@ -67,8 +67,8 @@ public class NPC extends Creature {
 
 	@Override
 	public void render(ATG g) {
-		g.drawImage(currentPosition, getX() - GameCamera.getInstance().getxOffset(),
-				getY() - GameCamera.getInstance().getyOffset(), getWidth(), getHeight());
+		g.drawImage(currentPosition, getX() - GameCamera.getInstance().getXOffset(),
+				getY() - GameCamera.getInstance().getYOffset(), getWidth(), getHeight());
 	}
 	
 	

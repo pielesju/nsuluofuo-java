@@ -53,7 +53,7 @@ public class Item {
 	}
 
 	public void render(ATG g) {
-		render(g, x - GameCamera.getInstance().getxOffset(), y - GameCamera.getInstance().getyOffset());
+		render(g, x - GameCamera.getInstance().getXOffset(), y - GameCamera.getInstance().getYOffset());
 	}
 
 	public void render(ATG g, int x, int y) {

@@ -15,6 +15,8 @@ import org.cofezuwo.nsuluofuo.creatures.NPC;
 import org.cofezuwo.nsuluofuo.creatures.Player;
 import org.cofezuwo.nsuluofuo.creatures.Player2;
 import org.cofezuwo.nsuluofuo.entities.EntityManager;
+import org.cofezuwo.nsuluofuo.events.EventManager;
+import org.cofezuwo.nsuluofuo.events.WarpEvent;
 import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
@@ -48,6 +50,9 @@ public class World {
 	private EntityManager entityManager;
 	@Getter
 	private QuestManager questManager;
+
+	private EventManager eventManager;
+
 	private Color daycolor;
 	private Date currentDate = new Date();
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH");
@@ -61,6 +66,7 @@ public class World {
 	public void update() {
 		entityManager.update();
 		questManager.update();
+		eventManager.update();
 		itemManager.update();
 	}
 
@@ -69,10 +75,10 @@ public class World {
 
 
 
-		int xStart = Math.max(0, cam.getxOffset() / 32);
-		int yStart = Math.max(0, cam.getyOffset() / 32);
-		int xEnd = Math.min(width, (cam.getxOffset() + 640) / Tile.TILEWIDTH + 1);
-		int yEnd = Math.min(height, (cam.getyOffset() + 480) / Tile.TILEHEIGHT + 1);
+		int xStart = (0 >= cam.getXOffset() / 32) ? 0 : cam.getXOffset() / 32;
+		int yStart = (0 >= cam.getYOffset() / 32) ? 0 : cam.getYOffset() / 32;
+		int xEnd = (width <= (cam.getXOffset() + 640) / Tile.TILE_WIDTH + 1) ? width : (cam.getXOffset() + 640) / Tile.TILE_WIDTH + 1;
+		int yEnd = (height <= (cam.getYOffset() + 480) / Tile.TILE_HEIGHT + 1) ? height : (cam.getYOffset() + 480) / Tile.TILE_HEIGHT + 1;
 
 		/* render ground Layer */
 		renderLayer(this.groundTiles, yStart, yEnd, xStart, xEnd);
@@ -82,6 +88,7 @@ public class World {
 
 		itemManager.render(g);
 		entityManager.render(g);
+		eventManager.render(g);
 		questManager.render(g);
 
 		g.fillRect(0, 0, 640, 480, daycolor);
@@ -96,8 +103,8 @@ public class World {
 	}
 
 	public void renderTile(int tile, int x, int y) {
-		x = x * Tile.TILEWIDTH - cam.getxOffset();
-		y = y * Tile.TILEWIDTH - cam.getyOffset();
+		x = x * Tile.TILE_WIDTH - cam.getXOffset();
+		y = y * Tile.TILE_WIDTH - cam.getYOffset();
 
 		Tiles.tiles[tile].render(g, x, y);
 	}
@@ -153,9 +160,12 @@ public class World {
 		entityManager = new EntityManager(new Player(spawnX, spawnY), new Player2(spawnX2, spawnY2));
 		questManager = new QuestManager();
 		questManager.setActive(false);
+		eventManager = new EventManager();
 		cam = GameCamera.getInstance();
 
 		itemManager = new ItemManager();
+
+		eventManager.addEvent(new WarpEvent(10, 10, 20, 20));
 
 		Gson gson = new Gson();
 		List<TmpEntity> entities = new ArrayList<>();

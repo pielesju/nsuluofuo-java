@@ -229,8 +229,8 @@ public class Player extends Creature {
 
 	@Override
 	public void render(ATG g) {
-		g.drawImage(getCurrentAnimationFrame(), getX() - cam.getxOffset(),
-				getY() - cam.getyOffset(), getWidth(), getHeight());
+		g.drawImage(getCurrentAnimationFrame(), getX() - cam.getXOffset(),
+				getY() - cam.getYOffset(), getWidth(), getHeight());
 
 		inventory.render(g);
 		trivel.render(g);

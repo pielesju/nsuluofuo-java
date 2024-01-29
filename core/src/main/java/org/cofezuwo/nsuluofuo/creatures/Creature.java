@@ -27,12 +27,12 @@ public abstract class Creature extends Entity {
 
 	public void moveX() {
 		if (xMove > 0) {
-			if(getX() >= (World.getInstance().getWidth() * Tile.TILEWIDTH- this.getWidth())) return;
+			if(getX() >= (World.getInstance().getWidth() * Tile.TILE_WIDTH- this.getWidth())) return;
 
-			int tx = (getX() + xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
+			int tx = (getX() + xMove + bounds.x + bounds.width) / Tile.TILE_WIDTH;
 
-			if (!collisionWithTile(tx, (getY() + bounds.y) / Tile.TILEHEIGHT)
-					&& !collisionWithTile(tx, (getY() + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
+			if (!collisionWithTile(tx, (getY() + bounds.y) / Tile.TILE_HEIGHT)
+					&& !collisionWithTile(tx, (getY() + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
 				setX(getX() + getXMove());
 			}
 
@@ -41,10 +41,10 @@ public abstract class Creature extends Entity {
 
 			if(getX() <= 0) return;
 
-			int tx = (getX() + xMove + bounds.x) / Tile.TILEWIDTH;
+			int tx = (getX() + xMove + bounds.x) / Tile.TILE_WIDTH;
 
-			if (!collisionWithTile(tx, (getY() + bounds.y) / Tile.TILEHEIGHT)
-					&& !collisionWithTile(tx, (int) (getY() + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
+			if (!collisionWithTile(tx, (getY() + bounds.y) / Tile.TILE_HEIGHT)
+					&& !collisionWithTile(tx, (int) (getY() + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
 				setX(getX() + getXMove());
 			}
 
@@ -55,20 +55,20 @@ public abstract class Creature extends Entity {
 		if (yMove < 0) {
 			if(getY() <= 0) return;
 
-			int ty = (getY() + yMove + bounds.y) / Tile.TILEHEIGHT;
+			int ty = (getY() + yMove + bounds.y) / Tile.TILE_HEIGHT;
 
-			if (!collisionWithTile((getX() + bounds.x) / Tile.TILEWIDTH, ty)
-					&& !collisionWithTile((getX() + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
+			if (!collisionWithTile((getX() + bounds.x) / Tile.TILE_WIDTH, ty)
+					&& !collisionWithTile((getX() + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)) {
 				setY(getY() + getYMove());
 			}
 
 		} else if (yMove > 0) {
-			if(getY() >= (World.getInstance().getHeight() * Tile.TILEHEIGHT - this.getHeight() - 1)) return;
+			if(getY() >= (World.getInstance().getHeight() * Tile.TILE_HEIGHT - this.getHeight() - 1)) return;
 
-			int ty = (getY() + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
+			int ty = (getY() + yMove + bounds.y + bounds.height) / Tile.TILE_HEIGHT;
 
-			if (!collisionWithTile((getX() + bounds.x) / Tile.TILEWIDTH, ty)
-					&& !collisionWithTile((getX() + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
+			if (!collisionWithTile((getX() + bounds.x) / Tile.TILE_WIDTH, ty)
+					&& !collisionWithTile((getX() + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)) {
 				setY(getY() + getYMove());
 			}
 		}

@@ -2,16 +2,23 @@ package org.cofezuwo.nsuluofuo.main;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cofezuwo.nsuluofuo.graphics.ATG;
-import org.cofezuwo.nsuluofuo.graphics.ATGAWT;
-import org.cofezuwo.nsuluofuo.graphics.Assets;
+import org.cofezuwo.nsuluofuo.graphics.*;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
 
 import java.awt.image.BufferStrategy;
 
 public class Game implements Runnable {
 
+
 	private static Game instance;
+
+	public static Game getInstance() {
+		if(null == instance) {
+			instance = new Game("NSULUOFUO", 640, 480);
+		}
+
+		return instance;
+	}
 
 	private static final long SECOND = 1000000000;
 
@@ -34,35 +41,47 @@ public class Game implements Runnable {
 
 	private GameMode gameMode;
 
+	private BufferStrategy bufferStrategy;
+
+	private static String graphicsBackend;
+
+	private static String startMode;
+
 
 
 	private Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+	}
 
+	private static void handleArgument(String arg) {
+		String argv[] = arg.split("=");
+		switch(argv[0]) {
+			case "-PgraphicsBackend": graphicsBackend = argv[1]; break;
+			case "-PstartMode": startMode = argv[1]; break;
+		}
 	}
 
 	public static void main(String[] args) {
+		for(String arg : args) {
+			if(!arg.contains("=")) continue;
+			handleArgument(arg);
+		}
+
 		Game.getInstance().start();
 	}
 
-	public static Game getInstance() {
-		if(null == instance) {
-			instance = new Game("NSULUOFUO", 640, 480);
+	private void initialize() {
+		switch(graphicsBackend) {
+			case "AWT": this.g = new ATGAWT(this.title, this.width, this.height); break;
+			case "OGL": this.g = new ATGGL(this.title, this.width, this.height); break;
+			case "SDL": this.g = new ATGSDL(this.title, this.width, this.height); break;
 		}
 
-		return instance;
-	}
-
-	private void initialize() {
-
-		this.g = new ATGAWT(this.title, this.width, this.height);
-
 		Assets.initialize();
-
-
 		gameMode = new GameMode();
+		g.getDisplay().getCanvas().createBufferStrategy(2);
 	}
 
 	private void update() {
@@ -71,11 +90,8 @@ public class Game implements Runnable {
 	}
 
 	private void render() {
-  		BufferStrategy bufferStrategy = g.getDisplay().getCanvas().getBufferStrategy();
-		if (bufferStrategy == null) {
-			g.getDisplay().getCanvas().createBufferStrategy(2);
-			return;
-		}
+		BufferStrategy bufferStrategy = g.getDisplay().getCanvas().getBufferStrategy();
+
 
 		g.setGraphics(bufferStrategy.getDrawGraphics());
 		g.clear();
@@ -87,7 +103,6 @@ public class Game implements Runnable {
 	}
 
 	public void run() {
-  		int ticks;
 		initialize();
 		int fps = 120;
 		double timePerUpdate = (double) SECOND / fps;
@@ -96,7 +111,6 @@ public class Game implements Runnable {
 		long now;
 		long lastTime = System.nanoTime();
 		long timer = 0;
-		ticks = 0;
 
 		while (isRunning()) {
 			now = System.nanoTime();
@@ -107,14 +121,10 @@ public class Game implements Runnable {
 			if (delta >= 1) {
 				update();
 				render();
-				ticks++;
 				delta--;
 			}
 
-			if (timer >= SECOND) {
-				ticks = 0;
-				timer = 0;
-			}
+			if (timer >= SECOND) timer = 0;
 		}
 		try {
 			stop();
