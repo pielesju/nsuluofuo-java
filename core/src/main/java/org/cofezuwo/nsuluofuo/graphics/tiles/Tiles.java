@@ -5,6 +5,7 @@ import org.cofezuwo.nsuluofuo.graphics.Assets;
 public class Tiles {
 
     public static final Tile[] tiles = {
+            new VoidTile(0, 32, 32, false),
         new Tile(1, Assets.grass, 32, 32, false),
             new Tile(2, Assets.highGrass, 32, 32, false),
             new Tile(17, Assets.watera[0], 32, 32, true),
@@ -28,6 +29,8 @@ public class Tiles {
             new Tile(21, Assets.gate, 32, 32, false),
             new Tile(21, Assets.leftBottomCorner, 32, 32, true),
             new Tile(22, Assets.rightBottomCorner, 32, 32, true),
+            new AnimatedTile(50, Assets.watera, 32, 32, false),
+            new AnimatedTile(50, Assets.lavaa, 32, 32, false)
     };
 
     private Tiles() {

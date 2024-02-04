@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.cofezuwo.nsuluofuo.entities.Entity;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
-import org.cofezuwo.nsuluofuo.worlds.World;
+import org.cofezuwo.nsuluofuo.main.Game;
 
 public abstract class Creature extends Entity {
 
@@ -27,12 +27,12 @@ public abstract class Creature extends Entity {
 
 	public void moveX() {
 		if (xMove > 0) {
-			if(getX() >= (World.getInstance().getWidth() * Tile.TILE_WIDTH- this.getWidth())) return;
+			if(getX() >= (Game.getInstance().getWidth() * Tile.TILE_WIDTH- this.getWidth())) return;
 
-			int tx = (getX() + xMove + bounds.x + bounds.width) / Tile.TILE_WIDTH;
+			int tx = (getX() + xMove + bounds[0].x + bounds[0].width) / Tile.TILE_WIDTH;
 
-			if (!collisionWithTile(tx, (getY() + bounds.y) / Tile.TILE_HEIGHT)
-					&& !collisionWithTile(tx, (getY() + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
+			if (!collisionWithTile(tx, (getY() + bounds[0].y) / Tile.TILE_HEIGHT)
+					&& !collisionWithTile(tx, (getY() + bounds[0].y + bounds[0].height) / Tile.TILE_HEIGHT)) {
 				setX(getX() + getXMove());
 			}
 
@@ -41,10 +41,10 @@ public abstract class Creature extends Entity {
 
 			if(getX() <= 0) return;
 
-			int tx = (getX() + xMove + bounds.x) / Tile.TILE_WIDTH;
+			int tx = (getX() + xMove + bounds[0].x) / Tile.TILE_WIDTH;
 
-			if (!collisionWithTile(tx, (getY() + bounds.y) / Tile.TILE_HEIGHT)
-					&& !collisionWithTile(tx, (int) (getY() + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
+			if (!collisionWithTile(tx, (getY() + bounds[0].y) / Tile.TILE_HEIGHT)
+					&& !collisionWithTile(tx, (int) (getY() + bounds[0].y + bounds[0].height) / Tile.TILE_HEIGHT)) {
 				setX(getX() + getXMove());
 			}
 
@@ -55,27 +55,27 @@ public abstract class Creature extends Entity {
 		if (yMove < 0) {
 			if(getY() <= 0) return;
 
-			int ty = (getY() + yMove + bounds.y) / Tile.TILE_HEIGHT;
+			int ty = (getY() + yMove + bounds[0].y) / Tile.TILE_HEIGHT;
 
-			if (!collisionWithTile((getX() + bounds.x) / Tile.TILE_WIDTH, ty)
-					&& !collisionWithTile((getX() + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)) {
+			if (!collisionWithTile((getX() + bounds[0].x) / Tile.TILE_WIDTH, ty)
+					&& !collisionWithTile((getX() + bounds[0].x + bounds[0].width) / Tile.TILE_WIDTH, ty)) {
 				setY(getY() + getYMove());
 			}
 
 		} else if (yMove > 0) {
-			if(getY() >= (World.getInstance().getHeight() * Tile.TILE_HEIGHT - this.getHeight() - 1)) return;
+			if(getY() >= (Game.getInstance().getHeight() * Tile.TILE_HEIGHT - this.getHeight() - 1)) return;
 
-			int ty = (getY() + yMove + bounds.y + bounds.height) / Tile.TILE_HEIGHT;
+			int ty = (getY() + yMove + bounds[0].y + bounds[0].height) / Tile.TILE_HEIGHT;
 
-			if (!collisionWithTile((getX() + bounds.x) / Tile.TILE_WIDTH, ty)
-					&& !collisionWithTile((getX() + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)) {
+			if (!collisionWithTile((getX() + bounds[0].x) / Tile.TILE_WIDTH, ty)
+					&& !collisionWithTile((getX() + bounds[0].x + bounds[0].width) / Tile.TILE_WIDTH, ty)) {
 				setY(getY() + getYMove());
 			}
 		}
 	}
 
 	private boolean collisionWithTile(int x, int y) {
-		return World.getInstance().getTile(x, y).isSolid();
+		return Game.getInstance().getTile(x, y).isSolid();
 	}
 
 	protected Creature(int x, int y, int width, int height) {
@@ -90,16 +90,16 @@ public abstract class Creature extends Entity {
 
 	public void giveExp(int amount) {
 		for (int i = 0; i < amount; i++) {
-			World.getInstance().getEntityManager().getPlayer()
-					.setExp(World.getInstance().getEntityManager().getPlayer().getExp() + 1);
-			if (World.getInstance().getEntityManager().getPlayer().getExp() >= World.getInstance().getEntityManager()
+			Game.getInstance().getEntityManager().getPlayer()
+					.setExp(Game.getInstance().getEntityManager().getPlayer().getExp() + 1);
+			if (Game.getInstance().getEntityManager().getPlayer().getExp() >= Game.getInstance().getEntityManager()
 					.getPlayer().getMaxExp()) {
-				World.getInstance().getEntityManager().getPlayer().setExp(0);
-				World.getInstance().getEntityManager().getPlayer()
-						.setLevel(World.getInstance().getEntityManager().getPlayer().getLevel() + 1);
-				World.getInstance().getEntityManager().getPlayer()
-						.setMaxExp(World.getInstance().getEntityManager().getPlayer().getMaxExp()
-								+ (World.getInstance().getEntityManager().getPlayer().getMaxExp() / 2));
+				Game.getInstance().getEntityManager().getPlayer().setExp(0);
+				Game.getInstance().getEntityManager().getPlayer()
+						.setLevel(Game.getInstance().getEntityManager().getPlayer().getLevel() + 1);
+				Game.getInstance().getEntityManager().getPlayer()
+						.setMaxExp(Game.getInstance().getEntityManager().getPlayer().getMaxExp()
+								+ (Game.getInstance().getEntityManager().getPlayer().getMaxExp() / 2));
 
 			}
 		}
@@ -110,17 +110,17 @@ public abstract class Creature extends Entity {
 		setYMove(0);
 
 		int width = 0;
-		if (getWidth() > World.getInstance().getEntityManager().getPlayer().getWidth()) {
+		if (getWidth() > Game.getInstance().getEntityManager().getPlayer().getWidth()) {
 			width = 32;
 		}
 
-		if (getX() + width < World.getInstance().getEntityManager().getPlayer().getX()) {
+		if (getX() + width < Game.getInstance().getEntityManager().getPlayer().getX()) {
 			setXMove(getXMove() + getSpeed());
-		} else if (getX() + width > World.getInstance().getEntityManager().getPlayer().getX()) {
+		} else if (getX() + width > Game.getInstance().getEntityManager().getPlayer().getX()) {
 			setXMove(getXMove() - getSpeed());
-		} else if (getY() + width < World.getInstance().getEntityManager().getPlayer().getY()) {
+		} else if (getY() + width < Game.getInstance().getEntityManager().getPlayer().getY()) {
 			setYMove(getYMove() + getSpeed());
-		} else if (getY() + width > World.getInstance().getEntityManager().getPlayer().getY()) {
+		} else if (getY() + width > Game.getInstance().getEntityManager().getPlayer().getY()) {
 			setYMove(getY() - getSpeed());
 		}
 

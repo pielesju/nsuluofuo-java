@@ -1,13 +1,12 @@
 package org.cofezuwo.nsuluofuo.item;
 
-import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Image;
 
 import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
-import org.cofezuwo.nsuluofuo.worlds.World;
+import org.cofezuwo.nsuluofuo.main.Game;
 
 public class Item {
 
@@ -43,12 +42,12 @@ public class Item {
 	}
 
 	public void update() {
-		if (World.getInstance().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(bounds) && getId() != 2) {
+		if (Game.getInstance().getEntityManager().getPlayer().getCollisionBounds(0, 0)[0].intersects(bounds) && getId() != 2) {
 			setPickedUp(true);
-			World.getInstance().getEntityManager().getPlayer().getInventory().addItem(this);
-		}else if((World.getInstance().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(bounds) && getId() == 2)){
+			Game.getInstance().getEntityManager().getPlayer().getInventory().addItem(this);
+		}else if((Game.getInstance().getEntityManager().getPlayer().getCollisionBounds(0, 0)[0].intersects(bounds) && getId() == 2)){
 			setPickedUp(true);
-			World.getInstance().getEntityManager().getPlayer().setMoney(World.getInstance().getEntityManager().getPlayer().getMoney() + 100);
+			Game.getInstance().getEntityManager().getPlayer().setMoney(Game.getInstance().getEntityManager().getPlayer().getMoney() + 100);
 		}
 	}
 

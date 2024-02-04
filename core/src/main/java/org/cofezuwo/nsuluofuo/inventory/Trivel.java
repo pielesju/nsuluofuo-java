@@ -8,7 +8,7 @@ import lombok.Setter;
 import org.cofezuwo.nsuluofuo.graphics.ATG;
 import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
-import org.cofezuwo.nsuluofuo.worlds.World;
+import org.cofezuwo.nsuluofuo.main.Game;
 
 public class Trivel {
 
@@ -37,7 +37,7 @@ public class Trivel {
 		
 		if(KeyManager.getInstance().keyJustPressed(KeyEvent.VK_RIGHT)){
 			active = !active;
-			World.getInstance().getEntityManager().getPlayer().getInfo().setActive(true);
+			Game.getInstance().getEntityManager().getPlayer().getInfo().setActive(true);
 		}
 
 		if(KeyManager.getInstance().keyJustPressed(KeyEvent.VK_PAGE_DOWN)) {
@@ -76,22 +76,22 @@ public class Trivel {
 
 	private void renderTrivelPage0(ATG g) {
 		g.drawString( "The Trivle", 175, 50, true, Color.BLACK, Assets.text);
-		g.drawString( "Hello World", 175, 70, true, Color.BLACK, Assets.smallText);
+		g.drawString( "Hello Game", 175, 70, true, Color.BLACK, Assets.smallText);
 	}
 
 	private void renderTrivelPage1(ATG g) {
 		g.drawString( "Active Quests", 175, 50, true, Color.BLACK, Assets.text);
-		renderQuestText(g, World.getInstance().getQuestManager().getActiveQuests().split("\n"));
+		renderQuestText(g, Game.getInstance().getQuestManager().getActiveQuests().split("\n"));
 	}
 
 	private void renderTrivelPage2(ATG g) {
 		g.drawString( "Not Available Quests", 175, 50, true, Color.BLACK, Assets.text);
-		renderQuestText(g, World.getInstance().getQuestManager().getNotAvailableQuests().split("\n"));
+		renderQuestText(g, Game.getInstance().getQuestManager().getNotAvailableQuests().split("\n"));
 	}
 
 	private void renderTrivelPage3(ATG g) {
 		g.drawString( "Completed Quests", 175, 50, true, Color.BLACK, Assets.text);
-		renderQuestText(g, World.getInstance().getQuestManager().getDoneQuests().split("\n"));
+		renderQuestText(g, Game.getInstance().getQuestManager().getDoneQuests().split("\n"));
 	}
 
 	private void renderQuestText(ATG g, String[] quests) {

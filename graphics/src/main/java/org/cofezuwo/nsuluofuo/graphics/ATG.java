@@ -8,7 +8,7 @@ public interface ATG {
 
     Display getDisplay();
 
-    void setGraphics(Graphics g);
+    void setGraphics(Object g);
 
     void clear();
 

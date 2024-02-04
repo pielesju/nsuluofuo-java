@@ -17,7 +17,7 @@ import org.cofezuwo.nsuluofuo.inventory.Inventory;
 import org.cofezuwo.nsuluofuo.inventory.PlayerInfo;
 import org.cofezuwo.nsuluofuo.inventory.Trivel;
 import org.cofezuwo.nsuluofuo.item.Item;
-import org.cofezuwo.nsuluofuo.worlds.World;
+import org.cofezuwo.nsuluofuo.main.Game;
 
 public class Player extends Creature {
 
@@ -94,10 +94,10 @@ public class Player extends Creature {
 		trivel = new Trivel();
 		
 		currentWeapon = new Item(null, null, 0, 0, 5, 0);
-		bounds.x = 8;
-		bounds.y = 16;
-		bounds.width = 16;
-		bounds.height = 16;
+		bounds[0].x = 8;
+		bounds[0].y = 16;
+		bounds[0].width = 16;
+		bounds[0].height = 16;
 
 		animDown = new Animation(Animation.DEFAULT_SPEED, Assets.player_down);
 		animUp = new Animation(Animation.DEFAULT_SPEED, Assets.player_up);
@@ -143,11 +143,12 @@ public class Player extends Creature {
 		Rectangle attackRectangle = new Rectangle(getX() - 20, getY() - 20, getWidth() + 40,
 				getHeight() + 40);
 
+
 		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_A)) {
-			for (Entity e : World.getInstance().getEntityManager().getEntities()) {
+			for (Entity e : Game.getInstance().getEntityManager().getEntities()) {
 				if (e.equals(this)) continue;
 
-				if (e.getCollisionBounds(0, 0).intersects(attackRectangle)) {
+				if (e.getCollisionBounds(0, 0)[0].intersects(attackRectangle)) {
 					e.hurt(getStrength());
 
 					KeyManager.getInstance().update();
@@ -179,10 +180,13 @@ public class Player extends Creature {
 
 		attackTimer = 0;
 
-		for (Entity e : World.getInstance().getEntityManager().getEntities()) {
+
+
+
+		for (Entity e : Game.getInstance().getEntityManager().getEntities()) {
 			if (e.equals(this)) continue;
 
-			if (e.getCollisionBounds(0, 0).intersects(rect)) {
+			if (e.getCollisionBounds(0, 0)[0].intersects(rect)) {
 				setHealth(getHealth() - e.getStrength());
 				return;
 			}

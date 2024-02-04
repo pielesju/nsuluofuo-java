@@ -4,6 +4,7 @@ import java.util.*;
 import org.cofezuwo.nsuluofuo.creatures.Player;
 import org.cofezuwo.nsuluofuo.creatures.Player2;
 import org.cofezuwo.nsuluofuo.graphics.ATG;
+import org.cofezuwo.nsuluofuo.statics.Roof;
 
 public class EntityManager {
 	private Player player;
@@ -23,7 +24,26 @@ public class EntityManager {
 			e.update();
 		}
 
-		Collections.sort(entities, (e1, e2) -> Integer.compare(e1.getY() + e1.getHeight(), e2.getY() + e2.getHeight()));
+//		Collections.sort(entities, (e1, e2) -> Integer.compare(e1.getY() + e1.getHeight(), e2.getY() + e2.getHeight()));
+		Collections.sort(entities, (e1, e2) -> {
+			// Wenn beide Entitäten vom Typ "Roof" sind, dann sind sie gleich
+			if (e1 instanceof Roof && e2 instanceof Roof) {
+				return 0;
+			}
+
+			// Wenn e1 vom Typ "Roof" ist, platzieren Sie es später (größerer Index)
+			if (e1 instanceof Roof) {
+				return 1;
+			}
+
+			// Wenn e2 vom Typ "Roof" ist, platzieren Sie es später (kleinerer Index)
+			if (e2 instanceof Roof) {
+				return -1;
+			}
+
+			// Andernfalls vergleichen Sie die Y-Werte wie zuvor
+			return Integer.compare(e1.getY() + e1.getHeight(), e2.getY() + e2.getHeight());
+		});
 	}
 
 	public void render(ATG g) {

@@ -22,10 +22,10 @@ public class Tree extends StaticEntity{
 		this.textures[0] = Assets.tree;
 		this.textures[1] = Assets.tree2;
 		texture = textures[random.nextInt(2)];
-		bounds.x = 12;
-		bounds.y = 50;
-		bounds.width = 6;
-		bounds.height = 6;
+		bounds[0].x = 12;
+		bounds[0].y = 50;
+		bounds[0].width = 6;
+		bounds[0].height = 6;
 	}
 
 	@Override

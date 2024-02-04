@@ -34,6 +34,11 @@
             <artifactId>jogl-all-main</artifactId>
             <version>2.3.2</version> <!-- Aktuelle Version überprüfen -->
         </dependency>
+        <dependency>
+            <groupId>io.github.libsdl4j</groupId>
+            <artifactId>libsdl4j</artifactId>
+            <version>2.28.4-1.6</version>
+        </dependency>
     </dependencies>
 
     <parent>

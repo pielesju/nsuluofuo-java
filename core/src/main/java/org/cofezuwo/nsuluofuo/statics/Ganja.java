@@ -18,10 +18,10 @@ public class Ganja extends StaticEntity{
 	public Ganja(int x, int y) {
 		super(x, y, Creature.DEFAULT_CREATURE_WIDTH, 2* Creature.DEFAULT_CREATURE_HEIGHT);
 
-		bounds.x = 15;
-		bounds.y = 52;
-		bounds.width = 2;
-		bounds.height = 2;
+		bounds[0].x = 15;
+		bounds[0].y = 52;
+		bounds[0].width = 2;
+		bounds[0].height = 2;
 		this.textures[0] = Assets.ganja;
 		this.textures[1] = Assets.sGanja;
 		this.textures[2] = Assets.rGanja;

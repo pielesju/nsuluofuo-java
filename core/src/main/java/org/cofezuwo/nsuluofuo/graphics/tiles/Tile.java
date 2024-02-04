@@ -1,6 +1,7 @@
 package org.cofezuwo.nsuluofuo.graphics.tiles;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.cofezuwo.nsuluofuo.graphics.ATG;
 
 import java.awt.Rectangle;
@@ -12,20 +13,31 @@ public class Tile {
 	public static final int TILE_HEIGHT = 32;
 
 	@Getter
-	private int id;
+	protected int id;
+
+	@Getter @Setter
 	private Image texture;
-	private int width;
-	private int height;
+	protected int width;
+	protected int height;
 
 	@Getter
-	private boolean solid;
+	protected boolean solid;
 
 	@Getter
-	private Rectangle bounds;
+	protected Rectangle bounds;
 
 	public Tile(int id, Image texture, int width, int height, boolean solid) {
 		this.id = id;
 		this.texture = texture;
+		this.width = width;
+		this.height = height;
+		this.solid = solid;
+		this.bounds = new Rectangle(0, 0, width, height);
+	}
+
+	// without image
+	public Tile(int id, int width, int height, boolean solid) {
+		this.id= id;
 		this.width = width;
 		this.height = height;
 		this.solid = solid;

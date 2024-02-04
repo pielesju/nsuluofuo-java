@@ -57,7 +57,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        org.cofezuwo.nsuluofuo.main.Game
+                                        org.cofezuwo.nsuluofuo.main.Main
                                     </mainClass>
                                 </manifest>
                             </archive>

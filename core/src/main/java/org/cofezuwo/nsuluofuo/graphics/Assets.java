@@ -40,8 +40,13 @@ public class Assets {
 	public static BufferedImage rightUpperCorner;
 	public static BufferedImage rightBottomCorner;
 
+	/* entities */
+	public static BufferedImage gate1;
+
 	/* water tile animations */
 	public static BufferedImage[] watera;
+	/* lava tile animations */
+	public static BufferedImage[] lavaa;
 
 	/* player */
 	public static BufferedImage playerDown;
@@ -102,6 +107,7 @@ public class Assets {
 	public static Font head;
 	public static Font text;
 	public static Font smallText;
+	public static Font vga;
 
 	/* large pictures */
 	public static BufferedImage background;
@@ -109,6 +115,14 @@ public class Assets {
 	public static BufferedImage ivo;
 	public static BufferedImage thc;
 	public static BufferedImage ivof;
+	public static BufferedImage roof;
+
+	/* rain animation */
+	public static BufferedImage[] raina;
+	public static BufferedImage rain1;
+	public static BufferedImage rain2;
+	public static BufferedImage rain3;
+	public static BufferedImage rain4;
 
 	public static final String SAO_FONT_FILE = "fonts/saoFont.ttf";
 
@@ -123,6 +137,7 @@ public class Assets {
 		head = FontLoader.loadFont(SAO_FONT_FILE, 128);
 		text = FontLoader.loadFont(SAO_FONT_FILE, 64);
 		smallText = FontLoader.loadFont(SAO_FONT_FILE, 24);
+		vga = FontLoader.loadFont("fonts/vga.ttf", 16);
 
 		BufferedImage player = ImageLoader.loadImage("/textures/Player.png");
 		BufferedImage npc = ImageLoader.loadImage("/textures/NPC.png");
@@ -134,7 +149,25 @@ public class Assets {
 		BufferedImage health = ImageLoader.loadImage("/textures/health.png");
 		BufferedImage mal = ImageLoader.loadImage("/textures/Cofezuwo.png");
 		BufferedImage aWater = ImageLoader.loadImage("/textures/Water.png");
+		BufferedImage lava = ImageLoader.loadImage("/textures/Lava.png");
 		BufferedImage ivoM = ImageLoader.loadImage("/textures/mmm.jpg");
+		roof = ImageLoader.loadImage("/textures/roof.png");
+
+		gate1 = ImageLoader.loadImage("/textures/gate1.png");
+
+		rain1 = ImageLoader.loadImage("/textures/rain1.png");
+		rain2 = ImageLoader.loadImage("/textures/rain2.png");
+		rain3 = ImageLoader.loadImage("/textures/rain3.png");
+		rain4 = ImageLoader.loadImage("/textures/rain4.png");
+
+		raina = new BufferedImage[4];
+
+		raina[0] = rain1;
+		raina[1] = rain2;
+		raina[2] = rain3;
+		raina[3] = rain4;
+
+
 
 		/* big pictures */
 
@@ -226,6 +259,40 @@ public class Assets {
 		watera[29] = aWater.getSubimage(0, 29*HEIGHT, WIDTH, HEIGHT);
 		watera[30] = aWater.getSubimage(0, 30*HEIGHT, WIDTH, HEIGHT);
 		watera[31] = aWater.getSubimage(0, 31*HEIGHT, WIDTH, HEIGHT);
+
+		lavaa = new BufferedImage[32];
+		lavaa[0] = lava.getSubimage(0, 0, WIDTH, HEIGHT);
+		lavaa[1] = lava.getSubimage(0, HEIGHT, WIDTH, HEIGHT);
+		lavaa[2] = lava.getSubimage(0, 2*HEIGHT, WIDTH, HEIGHT);
+		lavaa[3] = lava.getSubimage(0, 3*HEIGHT, WIDTH, HEIGHT);
+		lavaa[4] = lava.getSubimage(0, 4*HEIGHT, WIDTH, HEIGHT);
+		lavaa[5] = lava.getSubimage(0, 5*HEIGHT, WIDTH, HEIGHT);
+		lavaa[6] = lava.getSubimage(0, 6*HEIGHT, WIDTH, HEIGHT);
+		lavaa[7] = lava.getSubimage(0, 7*HEIGHT, WIDTH, HEIGHT);
+		lavaa[8] = lava.getSubimage(0, 8*HEIGHT, WIDTH, HEIGHT);
+		lavaa[9] = lava.getSubimage(0, 9*HEIGHT, WIDTH, HEIGHT);
+		lavaa[10] = lava.getSubimage(0, 10*HEIGHT, WIDTH, HEIGHT);
+		lavaa[11] = lava.getSubimage(0,11*HEIGHT, WIDTH, HEIGHT);
+		lavaa[12] = lava.getSubimage(0, 12*HEIGHT, WIDTH, HEIGHT);
+		lavaa[13] = lava.getSubimage(0, 13*HEIGHT, WIDTH, HEIGHT);
+		lavaa[14] = lava.getSubimage(0, 14*HEIGHT, WIDTH, HEIGHT);
+		lavaa[15] = lava.getSubimage(0, 15*HEIGHT, WIDTH, HEIGHT);
+		lavaa[16] = lava.getSubimage(0, 16*HEIGHT, WIDTH, HEIGHT);
+		lavaa[17] = lava.getSubimage(0, 17*HEIGHT, WIDTH, HEIGHT);
+		lavaa[18] = lava.getSubimage(0, 18*HEIGHT, WIDTH, HEIGHT);
+		lavaa[19] = lava.getSubimage(0, 19*HEIGHT, WIDTH, HEIGHT);
+		lavaa[20] = lava.getSubimage(0, 20*HEIGHT, WIDTH, HEIGHT);
+		lavaa[21] = lava.getSubimage(0, 21*HEIGHT, WIDTH, HEIGHT);
+		lavaa[22] = lava.getSubimage(0, 22*HEIGHT, WIDTH, HEIGHT);
+		lavaa[23] = lava.getSubimage(0, 23*HEIGHT, WIDTH, HEIGHT);
+		lavaa[24] = lava.getSubimage(0, 24*HEIGHT, WIDTH, HEIGHT);
+		lavaa[25] = lava.getSubimage(0, 25*HEIGHT, WIDTH, HEIGHT);
+		lavaa[26] = lava.getSubimage(0, 26*HEIGHT, WIDTH, HEIGHT);
+		lavaa[27] = lava.getSubimage(0, 27*HEIGHT, WIDTH, HEIGHT);
+		lavaa[28] = lava.getSubimage(0, 28*HEIGHT, WIDTH, HEIGHT);
+		lavaa[29] = lava.getSubimage(0, 29*HEIGHT, WIDTH, HEIGHT);
+		lavaa[30] = lava.getSubimage(0, 30*HEIGHT, WIDTH, HEIGHT);
+		lavaa[31] = lava.getSubimage(0, 31*HEIGHT, WIDTH, HEIGHT);
 
 		/* Items */
 

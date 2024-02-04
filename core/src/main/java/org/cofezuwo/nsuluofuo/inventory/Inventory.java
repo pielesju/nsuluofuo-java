@@ -5,7 +5,7 @@ import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
 import org.cofezuwo.nsuluofuo.item.Item;
 import org.cofezuwo.nsuluofuo.main.Game;
-import org.cofezuwo.nsuluofuo.worlds.World;
+import org.cofezuwo.nsuluofuo.main.Main;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -52,7 +52,7 @@ public class Inventory {
 
 		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_LEFT)) {
 			active = !active;
-			World.getInstance().getEntityManager().getPlayer().getInfo().setActive(true);
+			Game.getInstance().getEntityManager().getPlayer().getInfo().setActive(true);
 		}
 
 		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_PAGE_UP)) {
@@ -71,8 +71,8 @@ public class Inventory {
 				return;
 			} else {
 				inventoryItems.get(selectedItem).setCount(inventoryItems.get(selectedItem).getCount() - 1);
-				World.getInstance().getEntityManager().getPlayer()
-						.setMoney(World.getInstance().getEntityManager().getPlayer().getMoney()
+				Game.getInstance().getEntityManager().getPlayer()
+						.setMoney(Game.getInstance().getEntityManager().getPlayer().getMoney()
 								+ inventoryItems.get(selectedItem).getPrize());
 			}
 
@@ -91,8 +91,8 @@ public class Inventory {
 				return;
 			} else {
 				inventoryItems.get(selectedItem).setCount(inventoryItems.get(selectedItem).getCount() - 1);
-				World.getInstance().getEntityManager().getPlayer()
-						.setHealth(World.getInstance().getEntityManager().getPlayer().getHealth()
+				Game.getInstance().getEntityManager().getPlayer()
+						.setHealth(Game.getInstance().getEntityManager().getPlayer().getHealth()
 								+ inventoryItems.get(selectedItem).getStrength());
 			}
 
@@ -106,8 +106,8 @@ public class Inventory {
 				return;
 			}
 
-			World.getInstance().getEntityManager().getPlayer().setCurrentWeapon(inventoryItems.get(selectedItem));
-			World.getInstance().getEntityManager().getPlayer().setStrength(inventoryItems.get(selectedItem).getAttack());
+			Game.getInstance().getEntityManager().getPlayer().setCurrentWeapon(inventoryItems.get(selectedItem));
+			Game.getInstance().getEntityManager().getPlayer().setStrength(inventoryItems.get(selectedItem).getAttack());
 		}
 
 		if (selectedItem < 0) {
@@ -126,7 +126,7 @@ public class Inventory {
 
 
 		g.fillRoundRect(20, 20, 600, 440, 40, 40, color);
-		g.fillRect(40, 80, Game.getInstance().getWidth() - 80, 2, Color.GRAY);
+		g.fillRect(40, 80, Main.getInstance().getWidth() - 80, 2, Color.GRAY);
 		g.drawString("Items", 320, 60, true, Color.gray, Assets.text);
 		int length = inventoryItems.size();
 		if (length == 0) {

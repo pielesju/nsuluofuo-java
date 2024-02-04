@@ -4,12 +4,8 @@ import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 import org.cofezuwo.nsuluofuo.graphics.ATG;
-import org.cofezuwo.nsuluofuo.graphics.GameCamera;
-import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
-import org.cofezuwo.nsuluofuo.main.Game;
 import org.cofezuwo.nsuluofuo.utils.Utils;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 

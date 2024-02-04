@@ -1,7 +1,10 @@
 package org.cofezuwo.nsuluofuo.events;
 
 import org.cofezuwo.nsuluofuo.graphics.ATG;
-import org.cofezuwo.nsuluofuo.worlds.World;
+import org.cofezuwo.nsuluofuo.graphics.GameCamera;
+import org.cofezuwo.nsuluofuo.main.Game;
+
+import java.awt.*;
 
 public class WarpEvent extends Event {
 
@@ -11,22 +14,28 @@ public class WarpEvent extends Event {
     private int y2;
 
     public void update() {
-        if(World.getInstance().getEntityManager().getPlayer().getX() == x &&
-                World.getInstance().getEntityManager().getPlayer().getY() == y
-        ) {
-            World.getInstance().getEntityManager().getPlayer().setX(x2);
-            World.getInstance().getEntityManager().getPlayer().setX(y2);
+        if
+        (
+            Game.getInstance().getEntityManager().getPlayer().getX() >= x &&
+            Game.getInstance().getEntityManager().getPlayer().getY() <= x + 32 &&
+                    Game.getInstance().getEntityManager().getPlayer().getX() >= y &&
+                    Game.getInstance().getEntityManager().getPlayer().getY() <= y + 32
+
+        )
+        {
+            Game.getInstance().getEntityManager().getPlayer().setX(x2);
+            Game.getInstance().getEntityManager().getPlayer().setX(y2);
         }
     }
 
     public void render(ATG g) {
-
+        g.fillRect(x - GameCamera.getInstance().getXOffset(), y - GameCamera.getInstance().getYOffset(), 32, 32, Color.RED);
     }
 
     public WarpEvent(int x, int y, int x2, int y2) {
-        this.x = x;
-        this.y = y;
-        this.x2 = x2;
-        this.y2 = y2;
+        this.x = x * 32;
+        this.y = y * 32;
+        this.x2 = x2 * 32;
+        this.y2 = y2 * 32;
     }
 }

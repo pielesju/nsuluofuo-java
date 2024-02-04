@@ -30,10 +30,10 @@ public class Player2 extends Creature {
 //		bounds.width = 16;
 //		bounds.height = 16;
 		
-		bounds.x = 0;
-		bounds.y = 0;
-		bounds.width = 0;
-		bounds.height = 0;
+		bounds[0].x = 0;
+		bounds[0].y = 0;
+		bounds[0].width = 0;
+		bounds[0].height = 0;
 
 		this.cam = GameCamera.getInstance();
 

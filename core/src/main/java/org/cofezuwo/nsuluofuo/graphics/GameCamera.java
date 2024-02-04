@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.cofezuwo.nsuluofuo.entities.Entity;
 import org.cofezuwo.nsuluofuo.graphics.tiles.Tile;
+import org.cofezuwo.nsuluofuo.main.Main;
 import org.cofezuwo.nsuluofuo.main.Game;
-import org.cofezuwo.nsuluofuo.worlds.World;
 
 public class GameCamera {
 
@@ -31,22 +31,22 @@ public class GameCamera {
 	}
 
 	public void centerOnEntity(Entity e) {
-		setXOffset(e.getX() - Game.getInstance().getWidth() / 2 + e.getWidth() / 2);
-		setYOffset(e.getY() - Game.getInstance().getHeight() / 2 + e.getHeight() / 2);
+		setXOffset(e.getX() - Main.getInstance().getWidth() / 2 + e.getWidth() / 2);
+		setYOffset(e.getY() - Main.getInstance().getHeight() / 2 + e.getHeight() / 2);
 		checkBlankSpace();
 	}
 	
 	public void checkBlankSpace(){
 		if(getXOffset() < 0) setXOffset(0);
 
-		if(getXOffset() > World.getInstance().getWidth() * Tile.TILE_WIDTH - Game.getInstance().getWidth()){
-			setXOffset(World.getInstance().getWidth() * Tile.TILE_WIDTH - Game.getInstance().getWidth());
+		if(getXOffset() > Game.getInstance().getWidth() * Tile.TILE_WIDTH - Main.getInstance().getWidth()){
+			setXOffset(Game.getInstance().getWidth() * Tile.TILE_WIDTH - Main.getInstance().getWidth());
 		}
 
 		if(getYOffset() < 0) setYOffset(0);
 
-		if(getYOffset() > World.getInstance().getHeight() * Tile.TILE_HEIGHT - Game.getInstance().getHeight()){
-			setYOffset(World.getInstance().getHeight() * Tile.TILE_HEIGHT - Game.getInstance().getHeight());
+		if(getYOffset() > Game.getInstance().getHeight() * Tile.TILE_HEIGHT - Main.getInstance().getHeight()){
+			setYOffset(Game.getInstance().getHeight() * Tile.TILE_HEIGHT - Main.getInstance().getHeight());
 		}
 	}
 

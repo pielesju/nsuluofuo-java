@@ -2,7 +2,7 @@ package org.cofezuwo.nsuluofuo.story;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cofezuwo.nsuluofuo.worlds.World;
+import org.cofezuwo.nsuluofuo.main.Game;
 
 public class Condition {
 
@@ -45,7 +45,7 @@ public class Condition {
 
     private boolean resolvePlayerPosX() {
         switch(this.operator) {
-            case "=": return eq(World.getInstance().getEntityManager().getPlayer().getX(), Integer.parseInt(this.value));
+            case "=": return eq(Game.getInstance().getEntityManager().getPlayer().getX(), Integer.parseInt(this.value));
         }
 
         return true;
@@ -53,7 +53,7 @@ public class Condition {
 
     private boolean resolvePlayerPosY() {
         switch(this.operator) {
-            case "=": return eq(World.getInstance().getEntityManager().getPlayer().getY(), Integer.parseInt(this.value));
+            case "=": return eq(Game.getInstance().getEntityManager().getPlayer().getY(), Integer.parseInt(this.value));
         }
 
         return true;

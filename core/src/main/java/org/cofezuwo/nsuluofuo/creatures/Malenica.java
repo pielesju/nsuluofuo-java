@@ -9,7 +9,7 @@ import org.cofezuwo.nsuluofuo.graphics.Assets;
 import org.cofezuwo.nsuluofuo.graphics.GameCamera;
 import org.cofezuwo.nsuluofuo.input.KeyManager;
 import org.cofezuwo.nsuluofuo.inventory.Dialog;
-import org.cofezuwo.nsuluofuo.worlds.World;
+import org.cofezuwo.nsuluofuo.main.Game;
 
 public class Malenica extends NPC {
 	
@@ -29,21 +29,21 @@ public class Malenica extends NPC {
 			setHealth(100000);
 		}
 		if (KeyManager.getInstance().keyJustPressed(KeyEvent.VK_SPACE)
-				&& World.getInstance().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(sbounds)) {
+				&& Game.getInstance().getEntityManager().getPlayer().getCollisionBounds(0, 0)[0].intersects(sbounds)) {
 			Dialog.setActive(!(Dialog.isActive()));
 			Dialog.text = text;
 			Dialog.name = name;
 			Dialog.portrait = portrait;
-			if (World.getInstance().getEntityManager().getPlayer().getCurrentPosition() == World.getInstance()
+			if (Game.getInstance().getEntityManager().getPlayer().getCurrentPosition() == Game.getInstance()
 					.getEntityManager().getPlayer().getAnimDown().getCurrentFrame()) {
 				currentPosition = Assets.iMUp;
-			} else if (World.getInstance().getEntityManager().getPlayer().getCurrentPosition() == World.getInstance()
+			} else if (Game.getInstance().getEntityManager().getPlayer().getCurrentPosition() == Game.getInstance()
 					.getEntityManager().getPlayer().getAnimUp().getCurrentFrame()) {
 				currentPosition = Assets.iMDown;
-			} else if (World.getInstance().getEntityManager().getPlayer().getCurrentPosition() == World.getInstance()
+			} else if (Game.getInstance().getEntityManager().getPlayer().getCurrentPosition() == Game.getInstance()
 					.getEntityManager().getPlayer().getAnimLeft().getCurrentFrame()) {
 				currentPosition = Assets.iMRight;
-			} else if (World.getInstance().getEntityManager().getPlayer().getCurrentPosition() == World.getInstance()
+			} else if (Game.getInstance().getEntityManager().getPlayer().getCurrentPosition() == Game.getInstance()
 					.getEntityManager().getPlayer().getAnimRight().getCurrentFrame()) {
 				currentPosition = Assets.iMLeft;
 			}

@@ -23,6 +23,8 @@ public class Dialog {
 	}
 	
 	public void update() {
+		active = false;
+
 		if(!active) {
 			return;
 		}
@@ -32,6 +34,8 @@ public class Dialog {
 	}
 	
 	public static void render(ATG g) {
+		active = false;
+
 		if(!active) {
 			return;
 		}

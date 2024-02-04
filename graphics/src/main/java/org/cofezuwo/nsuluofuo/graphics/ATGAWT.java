@@ -14,8 +14,8 @@ public class ATGAWT implements ATG {
     private final int width;
     private final int height;
 
-    public void setGraphics(Graphics g) {
-        this.graphics = g;
+    public void setGraphics(Object g) {
+        this.graphics = (Graphics) g;
     }
 
 

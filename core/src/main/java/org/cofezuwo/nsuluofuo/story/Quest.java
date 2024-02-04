@@ -2,7 +2,6 @@ package org.cofezuwo.nsuluofuo.story;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cofezuwo.nsuluofuo.worlds.World;
 
 import java.util.List;
 
